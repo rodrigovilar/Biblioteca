@@ -1,0 +1,41 @@
+package br.com.aps.entidade;
+
+import java.io.Serializable;
+
+
+
+public class Aluno extends Pessoa implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final int QUANTIDADE_ACERVO_EMPRESTIMO = 3;
+	private Curso curso;
+	
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String nome, String codigo ) {
+		this.curso = new Curso(nome, codigo);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		if (curso == null) {
+		if (other.curso != null)
+			return false;
+		}else if (!curso.equals(other.curso))
+			return false;
+		
+	return true;
+	}
+}
