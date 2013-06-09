@@ -1,7 +1,10 @@
 package br.com.aps.fachada;
 
 import java.util.List;
+import java.util.Map;
+
 import br.com.aps.controle.GerenteAluno;
+import br.com.aps.controle.GerenteCurso;
 import br.com.aps.controle.GerenteEmprestimo;
 import br.com.aps.controle.GerenteFuncionario;
 import br.com.aps.controle.GerenteLivro;
@@ -10,16 +13,15 @@ import br.com.aps.controle.GerenteProfessor;
 import br.com.aps.controle.GerenteUsuario;
 import br.com.aps.entidade.Acervo;
 import br.com.aps.entidade.Aluno;
+import br.com.aps.entidade.Curso;
 import br.com.aps.entidade.Emprestimo;
 import br.com.aps.entidade.Funcionario;
 import br.com.aps.entidade.Livro;
 import br.com.aps.entidade.Periodico;
 import br.com.aps.entidade.Professor;
-import br.com.aps.entidade.TipoAcervo;
 import br.com.aps.entidade.Usuario;
 
-
-public class Biblioteca{
+public class Biblioteca {
 
 	GerenteUsuario gu = new GerenteUsuario();
 	GerenteAluno ga = new GerenteAluno();
@@ -27,62 +29,54 @@ public class Biblioteca{
 	GerenteProfessor gp = new GerenteProfessor();
 	GerentePeriodico gperiod = new GerentePeriodico();
 	GerenteLivro gl = new GerenteLivro();
+	GerenteCurso gc = new GerenteCurso();
 	GerenteEmprestimo ge = new GerenteEmprestimo();
 	
-	public void teste(){
-		Acervo acervo = new Acervo();
-		acervo.setTipoAcervo(TipoAcervo.LIVRO);
-		TipoAcervo.values();
-		
-		if(acervo.getTipoAcervo().equals(TipoAcervo.LIVRO)){
-			
-		}
-	}
-	
-	
+
+
 	public void login(String cpf, String senha) {
 		gu.login(cpf, senha);
 	}
-		
+
 	public void addUsuario(Usuario usuario) {
 		gu.addUsuario(usuario);
 	}
-	
+
 	public void deleteAdministrador(Usuario usuario) {
 		gu.deleteUsuario(usuario);
 	}
-	
+
 	public Usuario retornarUsuario(String cpfUsuario) {
 		return gu.retornarUsuario(cpfUsuario);
 	}
-	
-	public List<Usuario> getListUsuario(){
+
+	public List<Usuario> getListUsuario() {
 		return gu.getListUsuario();
 	}
-	
-	//Dados para o aluno
+
+	// Dados para o aluno
 	public void addAluno(Aluno aluno) {
 		ga.addAluno(aluno);
 	}
-	
-	public void deleteAluno(Aluno aluno){
+
+	public void deleteAluno(Aluno aluno) {
 		ga.deleteAluno(aluno);
 	}
-	
+
 	public Aluno retornarAluno(String cpfAluno) {
 		return ga.retornarAluno(cpfAluno);
 	}
-	
-	public Aluno alterarDadosAluno(Aluno aluno){
+
+	public Aluno alterarDadosAluno(Aluno aluno) {
 		return ga.alterarDadosAluno(aluno);
 	}
 
-	public List<Aluno> getListAluno(){
+	public List<Aluno> getListAluno() {
 		return ga.getListAluno();
 	}
-	
-	//Dados para o funcionario
-		
+
+	// Dados para o funcionario
+
 	public void addFuncionario(Funcionario funcionario) {
 		gf.addFuncionario(funcionario);
 	}
@@ -90,7 +84,7 @@ public class Biblioteca{
 	public void deleteFuncionario(Funcionario funcionario) {
 		gf.deleteFuncionario(funcionario);
 	}
-	
+
 	public Funcionario retornarFuncionario(String cpfFuncionario) {
 		return gf.retornarFuncionario(cpfFuncionario);
 	}
@@ -98,88 +92,120 @@ public class Biblioteca{
 	public Funcionario alterarDadosFuncionario(Funcionario funcionario) {
 		return gf.alterarDadosFuncionario(funcionario);
 	}
-	
-	public List<Funcionario> getListFuncionario(){
+
+	public List<Funcionario> getListFuncionario() {
 		return gf.getListFuncionario();
 	}
-	
-	public boolean campoSetorNaoPreenchido(){
+
+	public boolean campoSetorNaoPreenchido() {
 		return gf.campoSetorNaoPreenchido();
 	}
 
-	//Dados do professor
+	// Dados do professor
 	public void addProfessor(Professor professor) {
 		gp.addProfessor(professor);
 	}
-	
+
 	public void deleteProfessor(Professor professor) {
 		gp.deleteProfessor(professor);
 	}
-		
+
 	public Professor retornarProfessor(String cpfProfessor) {
 		return gp.retornarProfessor(cpfProfessor);
 	}
-	
+
 	public Professor alterarDadosProfessor(Professor professor) {
 		return gp.alterarDadosProfessor(professor);
 	}
-	
-	public List<Professor> getListProfessor(){
+
+	public List<Professor> getListProfessor() {
 		return gp.getListProfessor();
 	}
 
-	//Dados de acervo
-	public void addLivro(Livro livro){
+	// Dados de acervo
+	public void addLivro(Livro livro) {
 		gl.addLivro(livro);
 	}
-	
-	public Livro retornarLivro(int id){
+
+	public Livro retornarLivro(int id) {
 		return gl.retornarLivro(id);
 	}
-	
+
 	public List<Livro> getListLivro() {
 		return gl.getListLivro();
 	}
-	
-	public void addPeriodico(Periodico periodico){
+
+	public void addPeriodico(Periodico periodico) {
 		gperiod.addPeriodico(periodico);
 	}
-	
-	public Periodico retornarPeriodico(int id){
+
+	public Periodico retornarPeriodico(int id) {
 		return gperiod.retornarPeriodico(id);
 	}
-	
+
 	public List<Periodico> getListPeriodico() {
 		return gperiod.getListPeriodico();
 	}
-	
-	
-	//dados de emprestimo
-	public void realizaEmprestimo(Emprestimo emprestimo){
+
+	// dados de emprestimo
+	public void realizaEmprestimo(Emprestimo emprestimo) {
 		ge.realizaEmprestimo(emprestimo);
 	}
-	
-	public String livrosAlugadosPorAluno(Aluno aluno) {
-		return ge.livrosAlugadosPorAluno(aluno);
+
+	public void devolverEmprestimo(Emprestimo p) {
+		ge.devolverEmprestimo(p);
+	}
+
+	public void devolverEmprestimoForaDoPrazoEComMultaPaga(Emprestimo p) {
+		ge.devolverEmprestimoForaDoPrazoEComMultaPaga(p);
 	}
 	
-	public String livrosAlugadosPorFuncionario(Funcionario funcionario) {
-		return ge.livrosAlugadosPorFuncionario(funcionario);
+	public List<Emprestimo> getListEmprestimo(){
+		return ge.listaEp();
 	}
 	
-	public void devolverAcervo(Emprestimo emprestimo){
-		ge.devolverAcervo(emprestimo);
+	// Dados para Curso
+
+	public void addCursos(Curso curso) {
+		gc.addCursos(curso);
+	}
+
+	public Curso retornarCurso(String cod) {
+		return gc.retornarCurso(cod);
+	}
+
+	public void deletarCurso(Curso curso) {
+		gc.deletarCurso(curso);
+	}
+
+	public List<Curso> getListCurso() {
+		return gc.getListCurso();
+	}
+
+	//gerais
+	public boolean cpfvalido(String cpf) {
+		return ga.cpfvalido(cpf);
 	}
 	
 	public boolean campoCPFNaoPreenchido(){
 		return ga.campoCPFNaoPreenchido();
 	}
 	
-	//gambiarra
-	public boolean cpfvalido(String cpf){
-		return ga.cpfvalido(cpf);
-}
-
+	public Map<String, Acervo> getListaAcervo() {
+		return ge.getListaAcervo();
+	}
 
 	
 }
+
+/*
+ * public String livrosAlugadosPorAluno(Aluno aluno) { return
+ * ge.livrosAlugadosPorAluno(aluno); }
+ * 
+ * public String livrosAlugadosPorFuncionario(Funcionario funcionario) {
+ * return ge.livrosAlugadosPorFuncionario(funcionario); }
+ * 
+ * 
+ * public boolean campoCPFNaoPreenchido(){ return
+ * ga.campoCPFNaoPreenchido(); }
+ */

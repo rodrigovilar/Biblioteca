@@ -34,4 +34,5 @@ public class GerenteLivro {
 				throw new Excecao("Livro já existe"); 
 		}
 	}
+	
 }

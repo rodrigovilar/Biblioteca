@@ -5,11 +5,15 @@ public class Curso {
 	private String nome;
 	private String codigo;
 
-	public Curso(String nomeCurso, String codigo) {
-		this.setNome(nomeCurso);
+	public Curso(String nome, String codigo){
+		this.setNome(nome);
 		this.setCodigo(codigo);
 	}
-
+	
+	public Curso(){
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}

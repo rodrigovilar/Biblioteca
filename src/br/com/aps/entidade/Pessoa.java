@@ -6,6 +6,7 @@ public class Pessoa {
 	private String matricula;
 	private String telefone;
 	private String cpf;
+	private TipoPessoa tipoPessoa;
 	
 	public String getNome() {
 		return nome;
@@ -36,6 +37,13 @@ public class Pessoa {
 		this.telefone = telefone;
 	}
 
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -72,6 +80,12 @@ public class Pessoa {
 			if (other.cpf != null)
 				return false;
 		} else if (!cpf.equals(other.cpf))
+			return false;
+		
+		if (tipoPessoa == null) {
+			if (other.tipoPessoa != null)
+				return false;
+		} else if (!tipoPessoa.equals(other.tipoPessoa))
 			return false;
 		return true;
 	}

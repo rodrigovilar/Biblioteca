@@ -16,8 +16,8 @@ public class Aluno extends Pessoa implements Serializable {
 		return curso;
 	}
 
-	public void setCurso(String nome, String codigo ) {
-		this.curso = new Curso(nome, codigo);
+	public void setCurso(Curso curso ) {
+		this.curso = curso;
 	}
 	
 	@Override

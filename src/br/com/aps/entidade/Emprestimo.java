@@ -14,17 +14,6 @@ public class Emprestimo {
 	private Date dataDevolucao;
 	private Date dataPrevistaDevolucao;
 	
-	public Emprestimo(){
-		
-	}
-	
-	public Emprestimo(Pessoa pessoa2, List<Acervo> temp) {
-		this.setPessoa(pessoa2);
-		this.setListaAcervo(temp);
-	}
-	
-		
-	
 	public Date getDataPrevistaDevolucao() {
 		return dataPrevistaDevolucao;
 	}

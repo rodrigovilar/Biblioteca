@@ -3,8 +3,6 @@ package br.com.aps.entidade;
 
 public class Professor extends Pessoa {
 	
-	
-
 	private Departamento departamento;
 	
 

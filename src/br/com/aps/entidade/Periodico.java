@@ -2,8 +2,6 @@ package br.com.aps.entidade;
 
 import java.util.Date;
 
-
-
 public class Periodico extends Acervo {
 
 	private Date dataPublicacao;
