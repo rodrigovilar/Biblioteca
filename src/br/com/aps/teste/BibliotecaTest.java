@@ -32,7 +32,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void addUsuario() {
-		Usuario usuario = criarUsuario();
+		Usuario usuario = criarUsuarioAdministrador();
 		fachada.addUsuario(usuario);
 
 		List<Usuario> listaUsuario = fachada.getListUsuario();
@@ -40,29 +40,27 @@ public class BibliotecaTest {
 		Assert.assertEquals(usuarioCadastrado, usuario);
 	}
 
+	@Test
+	public void UsuarioFazLoginSucesso() {
+		criarUsuarioAdministrador_E_FazLoginSistema();
+		Assert.assertTrue(true);
+	}
+	
 	@Test(expected = Excecao.class)
-	public void usuarioSemCadastroTentaLogar() {
-		Usuario usuario = new Usuario();
+	public void usuarioNaoCadastrodoFazLogin(Usuario usuario) {
 		fachada.login(usuario.getLogin(), usuario.getSenha());
 	}
 
-	@Test
-	public void logarUsuarioSucesso() {
-		criaCadastroELogaAdministrador();
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void addUsuarioSemLogin() {
+	@Test (expected = Excecao.class)
+	public void addUsuarioAusenciaDados_Senha() {
 		Usuario usuario = new Usuario();
 		usuario.setSenha("123");
 		fachada.addUsuario(usuario);
-		Assert.assertFalse(false);
 	}
 
 	@Test
 	public void addAluno() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno a = criarAluno();
 		fachada.addAluno(a);
 
@@ -73,7 +71,7 @@ public class BibliotecaTest {
 
 	@Test(expected = Excecao.class)
 	public void addAlunoNovamente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 
 		Aluno a = criarAluno();
 		fachada.addAluno(a);
@@ -82,52 +80,51 @@ public class BibliotecaTest {
 
 	@Test
 	public void deletarAluno() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno a = criarAluno();
 		fachada.addAluno(a);
-
 		List<Aluno> listaAlunno = fachada.getListAluno();
 		Aluno alunoCadastrado = listaAlunno.get(0);
 		Assert.assertEquals(alunoCadastrado, a);
+
 		fachada.deleteAluno(a);
-		Assert.assertTrue(true);// removeu Aluno
+		int size = listaAlunno.size();
+		Assert.assertEquals(0, size);
 	}
 
 	@Test(expected = Excecao.class)
 	public void deletarAlunoNovamente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno a = criarAluno();
 		fachada.addAluno(a);
 
-		List<Aluno> listaAlunno = fachada.getListAluno();
-		Aluno alunoCadastrado = listaAlunno.get(0);
-		Assert.assertEquals(alunoCadastrado, a);
 		fachada.deleteAluno(a);
 		fachada.deleteAluno(a);
 	}
 
 	@Test(expected = Excecao.class)
 	public void deletarAlunoNaoExistente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno alun = criarAluno();
 		fachada.deleteAluno(alun);
 	}
 
 	@Test
 	public void alterarAluno() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno a = criarAluno();
 		fachada.addAluno(a);
 
 		List<Aluno> listaAlunno = fachada.getListAluno();
 		Aluno alunoCadastrado = listaAlunno.get(0);
+		a.setTelefone("12121121");
 		fachada.alterarDadosAluno(a);
 		Assert.assertEquals(alunoCadastrado, a);
 	}
 
-	@Test
+	@Test (expected = Excecao.class)
 	public void AddAlunoCPFInvalido() { 
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno aluno = new Aluno();
 		aluno.setNome("Joao");
 		aluno.setMatricula("80809912");
@@ -135,27 +132,24 @@ public class BibliotecaTest {
 		aluno.setTelefone("87234567");
 		aluno.setCurso(criarCurso());
 		fachada.addAluno(aluno);
-
-		Assert.assertFalse(false);
+		fachada.cpfvalido(aluno.getCpf());	
 	}
 
-	@Test
+	@Test ()
 	public void addAlunoSemCPF() { 
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Aluno aluno = new Aluno();
 		aluno.setNome("Joao");
 		aluno.setMatricula("80809912");
 		aluno.setCpf(null);
 		aluno.setTelefone("87234567");
 		aluno.setCurso(criarCurso());
-		fachada.campoCPFNaoPreenchido();
-
-		Assert.assertTrue(true);
+		
 	}
 
 	@Test
 	public void addFuncionario() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario f = criarFuncionario();
 		fachada.addFuncionario(f);
 
@@ -166,7 +160,7 @@ public class BibliotecaTest {
 
 	@Test(expected = Excecao.class)
 	public void addFuncionarioNovamente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario f = criarFuncionario();
 		fachada.addFuncionario(f);
 		fachada.addFuncionario(f);
@@ -174,52 +168,51 @@ public class BibliotecaTest {
 
 	@Test
 	public void deletarFuncionario() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario f = criarFuncionario();
 		fachada.addFuncionario(f);
-
 		List<Funcionario> listaFuncionario = fachada.getListFuncionario();
 		Funcionario funcionarioCadastrado = listaFuncionario.get(0);
 		Assert.assertEquals(funcionarioCadastrado, f);
+		
 		fachada.deleteFuncionario(f);
-		Assert.assertTrue(true);
+		int size = listaFuncionario.size();
+		Assert.assertEquals(0, size);
 	}
 
 	@Test(expected = Excecao.class)
 	public void deletarFuncionarioNovamente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario f = criarFuncionario();
 		fachada.addFuncionario(f);
-		List<Funcionario> listaFuncionario = fachada.getListFuncionario();
-		Funcionario funcionarioCadastrado = listaFuncionario.get(0);
-		Assert.assertEquals(funcionarioCadastrado, f);
-
+		
 		fachada.deleteFuncionario(f);
 		fachada.deleteFuncionario(f);
 	}
 
 	@Test(expected = Excecao.class)
 	public void deletarFuncionarioNaoExistente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario f = criarFuncionario();
 		fachada.deleteFuncionario(f);
 	}
 
 	@Test
 	public void alterarFuncionario() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario funcionario = criarFuncionario();
 		fachada.addFuncionario(funcionario);
 		List<Funcionario> listaFuncionario = fachada.getListFuncionario();
 		Funcionario funcionarioCadastrado = listaFuncionario.get(0);
 
+		funcionario.setTelefone("44447564");
 		fachada.alterarDadosFuncionario(funcionario);
 		Assert.assertEquals(funcionarioCadastrado, funcionario);
 	}
 
 	@Test
 	public void addFuncionarioSemSetor() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("Joao");
 		funcionario.setMatricula("80809912");
@@ -233,7 +226,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void addProfessor() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Professor p = criarProfessor();
 		fachada.addProfessor(p);
 		List<Professor> listaProfessor = fachada.getListProfessor();
@@ -244,7 +237,7 @@ public class BibliotecaTest {
 
 	@Test(expected = Excecao.class)
 	public void addProfessorNovamente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Professor p = criarProfessor();
 		fachada.addProfessor(p);
 		fachada.addProfessor(p);
@@ -252,26 +245,28 @@ public class BibliotecaTest {
 
 	@Test
 	public void deletarProfessor() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Professor p = criarProfessor();
 		fachada.addProfessor(p);
 		List<Professor> listaProfessor = fachada.getListProfessor();
 		Professor professorCadastrado = listaProfessor.get(0);
 		Assert.assertEquals(professorCadastrado, p);
+		
 		fachada.deleteProfessor(p);
-		Assert.assertEquals(professorCadastrado, p);// removeu professor
+		int size = listaProfessor.size();
+		Assert.assertEquals(0, size);
 	}
 
 	@Test(expected = Excecao.class)
 	public void deletarProfessornaoExistente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Professor w = criarProfessor();
 		fachada.deleteProfessor(w);
 	}
 
 	@Test
 	public void addCurso() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Curso curso = criarCurso();
 		fachada.addCursos(curso);
 
@@ -282,7 +277,7 @@ public class BibliotecaTest {
 
 	@Test(expected = Excecao.class)
 	public void addCursoNovamente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Curso c = criarCurso();
 		fachada.addCursos(c);
 		fachada.addCursos(c);
@@ -290,26 +285,28 @@ public class BibliotecaTest {
 
 	@Test
 	public void deletarCadastroDeCurso() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Curso c = criarCurso();
 		fachada.addCursos(c);
 		List<Curso> listaCursos = fachada.getListCurso();
 		Curso cadastroDeCurso = listaCursos.get(0);
 		Assert.assertEquals(cadastroDeCurso, c);
+		
 		fachada.deletarCurso(c);
-		Assert.assertTrue(true);
+		int size = listaCursos.size();
+		Assert.assertEquals(0, size);
 	}
 
 	@Test(expected = Excecao.class)
 	public void removerCursoNaoExistente() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Curso c = criarCurso();
 		fachada.deletarCurso(c);
 	}
 
 	@Test(expected = Exception.class)
 	public void addCursoComCodigoNulo() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Curso c1 = criarCurso();
 		c1.setCodigo(null);
 		fachada.addCursos(c1);
@@ -317,7 +314,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void addLivro() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Livro livro = criarLivro();
 		fachada.addLivro(livro);
 
@@ -328,7 +325,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void addPeriodico() {
-		criaCadastroELogaAdministrador();
+		criarUsuarioAdministrador_E_FazLoginSistema();
 		Periodico periodico = criarPeriodico();
 		fachada.addPeriodico(periodico);
 
@@ -348,17 +345,15 @@ public class BibliotecaTest {
 	}
 	
 	@Test(expected = Excecao.class)
-	public void realizarEmprestimoParaAluno(){
+	public void realizarEmprestimoPeriodicoParaAluno(){
 		Emprestimo ep3 = criarEmprestimoAlunoComPeriodico();
 		fachada.realizaEmprestimo(ep3);
-		fachada.getListEmprestimo();
 	}
 	
 	@Test(expected = Excecao.class)
 	public void realizarEmprestimoVariosLivroParaAluno(){
 		Emprestimo ep = criarEmprestimoIndevido();
 		fachada.realizaEmprestimo(ep);	
-		fachada.getListaAcervo();
 	}
 	
 	@Test
@@ -436,15 +431,15 @@ public class BibliotecaTest {
 		return funcionario;
 	}
 
-	private Usuario criarUsuario() {
+	private Usuario criarUsuarioAdministrador() {
 		Usuario usuario = new Usuario();
 		usuario.setLogin("3333");
 		usuario.setSenha("1234");
 		return usuario;
 	}
 
-	private void criaCadastroELogaAdministrador() {
-		Usuario usuario = criarUsuario();
+	private void criarUsuarioAdministrador_E_FazLoginSistema () {
+		Usuario usuario = criarUsuarioAdministrador();
 		fachada.addUsuario(usuario);
 		fachada.login(usuario.getLogin(), usuario.getSenha());
 	}
