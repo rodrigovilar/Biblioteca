@@ -168,8 +168,8 @@ public class Biblioteca {
 		return gc.retornarCurso(cod);
 	}
 
-	public void deletarCurso(Curso curso) {
-		gc.deletarCurso(curso);
+	public void deleteCurso(Curso curso) {
+		gc.deleteCurso(curso);
 	}
 
 	public List<Curso> getListCurso() {

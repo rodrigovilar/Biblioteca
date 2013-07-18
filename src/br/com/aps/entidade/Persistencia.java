@@ -8,23 +8,28 @@ public class Persistencia implements Serializable {
 	private LinkedList<Aluno> listaAluno;
 	private LinkedList<Funcionario> listaFuncionario;
 	private LinkedList<Emprestimo> listaEmprestimo;
+	private LinkedList<Curso> listaCurso;
 
 	public Persistencia() {
 		this.listaAluno = new LinkedList<Aluno>();
 		this.listaFuncionario = new LinkedList<Funcionario>();
 		this.listaEmprestimo = new LinkedList<Emprestimo>();
+		this.listaCurso = new LinkedList<Curso>();
 	}
-	
-	
+
 	public LinkedList<Aluno> getListaAluno() {
 		return listaAluno;
 	}
-	
+
 	public LinkedList<Funcionario> getListaFuncionarios() {
 		return listaFuncionario;
 	}
-	
+
 	public LinkedList<Emprestimo> getListaEmprestimos() {
 		return listaEmprestimo;
+	}
+
+	public LinkedList<Curso> getListaCurso() {
+		return listaCurso;
 	}
 }

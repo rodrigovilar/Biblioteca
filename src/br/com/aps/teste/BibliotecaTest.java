@@ -324,7 +324,7 @@ public class BibliotecaTest {
 		Curso cadastroDeCurso = listaCursos.get(0);
 		Assert.assertEquals(cadastroDeCurso, c);
 
-		fachada.deletarCurso(c);
+		fachada.deleteCurso(c);
 		int size = listaCursos.size();
 		Assert.assertEquals(0, size);
 	}
@@ -333,7 +333,7 @@ public class BibliotecaTest {
 	public void removerCursoNaoExistente() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
 		Curso c = criarCurso();
-		fachada.deletarCurso(c);
+		fachada.deleteCurso(c);
 	}
 
 	@Test
