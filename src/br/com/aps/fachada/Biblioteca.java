@@ -59,8 +59,8 @@ public class Biblioteca {
 		ga.addAluno(aluno);
 	}
 
-	public void deleteAluno(Aluno aluno) {
-		ga.deleteAluno(aluno);
+	public Aluno deleteAluno(Aluno aluno) {
+		return ga.deleteAluno(aluno);
 	}
 
 	public Aluno retornarAluno(String cpfAluno) {
@@ -81,8 +81,8 @@ public class Biblioteca {
 		gf.addFuncionario(funcionario);
 	}
 
-	public void deleteFuncionario(Funcionario funcionario) {
-		gf.deleteFuncionario(funcionario);
+	public Funcionario deleteFuncionario(Funcionario funcionario) {
+		return gf.deleteFuncionario(funcionario);
 	}
 
 	public Funcionario retornarFuncionario(String cpfFuncionario) {
@@ -97,9 +97,6 @@ public class Biblioteca {
 		return gf.getListFuncionario();
 	}
 
-	public boolean campoSetorNaoPreenchido() {
-		return gf.campoSetorNaoPreenchido();
-	}
 
 	// Dados do professor
 	public void addProfessor(Professor professor) {
@@ -156,12 +153,9 @@ public class Biblioteca {
 		ge.devolverEmprestimo(p);
 	}
 
-	public void devolverEmprestimoForaDoPrazoEComMultaPaga(Emprestimo p) {
-		ge.devolverEmprestimoForaDoPrazoEComMultaPaga(p);
-	}
 	
 	public List<Emprestimo> getListEmprestimo(){
-		return ge.listaEp();
+		return ge.getListEmprestimo();
 	}
 	
 	// Dados para Curso
@@ -183,18 +177,7 @@ public class Biblioteca {
 	}
 
 	//gerais
-	public boolean cpfvalido(String cpf) {
-		return ga.cpfvalido(cpf);
-	}
 	
-	public boolean campoCPFNaoPreenchido(){
-		return ga.campoCPFNaoPreenchido();
-	}
-	
-	public Map<String, Acervo> getListaAcervo() {
-		return ge.getListaAcervo();
-	}
-
 	
 }
 
@@ -204,8 +187,4 @@ public class Biblioteca {
  * 
  * public String livrosAlugadosPorFuncionario(Funcionario funcionario) {
  * return ge.livrosAlugadosPorFuncionario(funcionario); }
- * 
- * 
- * public boolean campoCPFNaoPreenchido(){ return
- * ga.campoCPFNaoPreenchido(); }
  */

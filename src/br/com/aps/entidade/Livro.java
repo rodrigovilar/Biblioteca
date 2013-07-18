@@ -1,13 +1,12 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 
-
-public class Livro extends Acervo{
+public class Livro extends Acervo implements Serializable{
 
 	private String editora;
 	
-
-	public String getEditora() {
+		public String getEditora() {
 		return editora;
 	}
 
@@ -26,10 +25,11 @@ public class Livro extends Acervo{
 			return false;
 		Livro other = (Livro) obj;
 		if (editora == null) {
-		if (other.editora != null)
-			return false;
+			if (other.editora != null)
+				return false;
 		}else if (!editora.equals(other.editora))
 			return false;
+		
 		return true;
 	}	
 	

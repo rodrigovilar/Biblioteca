@@ -1,5 +1,6 @@
 package br.com.aps.controle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -13,20 +14,11 @@ import br.com.aps.entidade.Periodico;
 import br.com.aps.excecao.Excecao;
 
 
-public class GerenteEmprestimo {
+public class GerenteEmprestimo implements Serializable{
 	
-	List<Emprestimo> listaEmprestimo = new ArrayList<Emprestimo>();
-	Map<String, Acervo> listaAcervo = new HashMap<String, Acervo>();
-	List<String> disponiveis = new ArrayList<String>();
+	private List<String> disponiveis = new ArrayList<String>();
+	double valorMulta = 0;
 
-	
-	public List<Emprestimo> listaEp(){
-		return listaEmprestimo;
-	}
-	
-	public Map<String, Acervo> getListaAcervo() {
-		return listaAcervo;
-	}
 	
 	public void realizaEmprestimo(Emprestimo emprestimo){
 	       
@@ -34,8 +26,8 @@ public class GerenteEmprestimo {
 	        throw new Excecao("Empréstimo não pode ser null");
 	    }
 	    
-	    if(emprestimo.getListaAcervo() == null || emprestimo.getListaAcervo().isEmpty()){
-	        throw new Excecao("Nao ha livros");
+	    if(emprestimo.getAcervo() == null){
+	        throw new Excecao("Nao há Acervo");
 	    }
 	    
 	    if(emprestimo.getPessoa() == null){
@@ -43,48 +35,70 @@ public class GerenteEmprestimo {
 	    }
 	    
 	    if(emprestimo.getPessoa() instanceof Aluno){
-	        for(int i = 0; i < emprestimo.getListaAcervo().size(); i++){
-	            if(emprestimo.getListaAcervo().get(i) instanceof Periodico){
-	                throw new Excecao("Aluno, nao pode pegar periodico");
+	    	for(int i = 0; i<emprestimo.getPessoa().getListaEmprestimo().size(); i++){
+	            if(emprestimo.getPessoa().getListaEmprestimo() instanceof Periodico){
+	            	throw new Excecao("Aluno, nao pode pegar periodico");
 	            }
 	        }
 	    }
 	    
-	    if(emprestimo.getListaAcervo().size() > Aluno.QUANTIDADE_ACERVO_EMPRESTIMO){
+	    if(emprestimo.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO){
 	        throw new Excecao("Aluno, nao pode pegar mais de três livros.");
 	    }
 	    
-	    if((emprestimo.getPessoa() instanceof Funcionario) && (emprestimo.getListaAcervo().size() > 5)){
+	    if((emprestimo.getPessoa() instanceof Funcionario) && (emprestimo.getPessoa().getListaEmprestimo().size() > 5)){
 	        throw new Excecao("Funcionario, nao pode pegar mais de cinco livros.");
 	    }
 
-	    listaEmprestimo.add(emprestimo);
+	    
+	    GerentePersistencia.getInstance().getListaEmprestimos().add(emprestimo);
+		GerentePersistencia.persistir();
 	    
 	}
 	
-	public void devolverEmprestimo(Emprestimo p){
-		if(p.getDataDevolucao().after(p.getDataPrevistaDevolucao())){
-			throw new Excecao("Emprestimo com pendencia de multa");		
+	public void devolverEmprestimo(Emprestimo emprestimo){
+		if((emprestimo.getPessoa() instanceof Aluno) || (emprestimo.getPessoa() instanceof Funcionario)){
+			if(verificaMulta(emprestimo)== true){
+				calcularMulta(emprestimo);
+				if(pagarMulta(emprestimo, valorMulta) == true){
+					GerentePersistencia.getInstance().getListaEmprestimos().remove(emprestimo);
+					GerentePersistencia.persistir();
+				}
+				throw new Excecao("Emprestimo com pendencia de multa, é necessário pagar o valor da multa");
+			}	
+		}else{
+			GerentePersistencia.getInstance().getListaEmprestimos().remove(emprestimo);
+			GerentePersistencia.persistir();
 		}
-		listaEmprestimo.remove(p);
 	}
 	
-	public void devolverEmprestimoForaDoPrazoEComMultaPaga(Emprestimo p){
-		calcular_E_Pagar_Multa(p);
-		listaEmprestimo.remove(p);
-	}
 
-	public boolean pagarMulta(float valor){
+	public boolean verificaMulta(Emprestimo empr){
+		if(empr.getDataDevolucao().after(empr.getDataPrevistaDevolucao())){
+			int quantdia = dataDiff(empr.getDataDevolucao(), empr.getDataPrevistaDevolucao());
+			if(quantdia > 0){
+				throw new Excecao("Emprestimo com pendencia de multa");
+			}
+		}
+		return false;
+	}
+	
+	public double calcularMulta(Emprestimo emprestimo){
+		if(emprestimo.getDataDevolucao().after(emprestimo.getDataPrevistaDevolucao())){
+			int quantdia = dataDiff(emprestimo.getDataDevolucao(), emprestimo.getDataPrevistaDevolucao());
+				valorMulta = quantdia * 0.50;
+		}
+		return valorMulta;
+	}
+	
+	public boolean pagarMulta(Emprestimo p, double valor){
 		return true;
 	}
-	
-	public void calcular_E_Pagar_Multa(Emprestimo p){
-		if(p.getDataDevolucao().after(p.getDataPrevistaDevolucao())){
-			int quantdia = dataDiff(p.getDataDevolucao(), p.getDataPrevistaDevolucao());
-			float valorMulta = (float) (quantdia * 0.50);
-			pagarMulta(valorMulta);
-		}
+		
+	public List<Emprestimo> getListEmprestimo(){
+		return GerentePersistencia.getInstance().getListaEmprestimos();
 	}
+
 		
 	public static int dataDiff(java.util.Date dataLow, java.util.Date dataHigh){  
 		  

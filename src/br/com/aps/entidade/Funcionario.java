@@ -1,12 +1,13 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 
-public class Funcionario extends Pessoa{
+
+public class Funcionario extends Pessoa implements Serializable{
 
 	public static final int QUANTIDADE_ACERVO_EMPRESTIMO = 5;
 	private String setor;
-	private Usuario usuario;
-	
+
 	
 	public String getSetor() {
 		return setor;
@@ -15,12 +16,6 @@ public class Funcionario extends Pessoa{
 		this.setor = setor;
 	}
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -36,16 +31,7 @@ public class Funcionario extends Pessoa{
 		if (other.setor != null)
 			return false;
 		}else if (!setor.equals(other.setor))
-			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-			}else if (!usuario.equals(other.usuario))
-				return false;
-		
+			return false;		
 		return true;
 	}
-	
-	
-	
 }

@@ -1,12 +1,14 @@
 package br.com.aps.controle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.aps.entidade.Acervo;
 import br.com.aps.entidade.Livro;
 import br.com.aps.excecao.Excecao;
 
-public class GerenteLivro {
+public class GerenteLivro extends Acervo  {
 
 	List<Livro> listaLivro = new ArrayList<Livro>();
 	

@@ -24,6 +24,10 @@ public class GerenteUsuario {
 	}
 
 	public void addUsuario(Usuario usuario){
+		if(((usuario.getSetor()==null) || (usuario.getLogin()== null) 
+			 || (usuario.getSenha()==null))){
+			throw new Excecao("Campos obrigatórios não preenchidos");
+		}
 		listaUsuario.add(usuario);
 	}
 	

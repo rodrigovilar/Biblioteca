@@ -1,13 +1,42 @@
 package br.com.aps.entidade;
 
-public class Pessoa {
+import java.io.Serializable;
+import java.util.List;
+
+public class Pessoa implements Serializable{
 
 	private String nome;
 	private String matricula;
 	private String telefone;
 	private String cpf;
 	private TipoPessoa tipoPessoa;
+	private List<Emprestimo> listaEmprestimo;
 	
+	
+	public Pessoa(){
+		this.nome="sem nome";
+		this.matricula = "sem matricula";
+		this.telefone = null;
+		this.cpf="";
+	}
+	
+	
+	
+	
+	public List<Emprestimo> getListaEmprestimo() {
+		return listaEmprestimo;
+	}
+
+
+
+
+	public void setListaEmprestimo(List<Emprestimo> listaEmprestimo) {
+		this.listaEmprestimo = listaEmprestimo;
+	}
+
+
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -42,8 +71,7 @@ public class Pessoa {
 	}
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
-	}
-	
+	}	
 	
 	@Override
 	public boolean equals(Object obj) {

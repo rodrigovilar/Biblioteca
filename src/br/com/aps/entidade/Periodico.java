@@ -1,11 +1,12 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Periodico extends Acervo {
+public class Periodico extends Acervo implements Serializable {
 
 	private Date dataPublicacao;
-
+	
 	public Date getDataPublicacao() {
 		return dataPublicacao;
 	}
@@ -29,6 +30,7 @@ public class Periodico extends Acervo {
 			return false;
 		}else if (!dataPublicacao.equals(other.dataPublicacao))
 			return false;
+		
 		return true;
 	}
 	

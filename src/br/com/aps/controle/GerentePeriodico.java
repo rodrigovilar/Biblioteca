@@ -2,11 +2,13 @@ package br.com.aps.controle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.aps.entidade.Acervo;
 import br.com.aps.entidade.Periodico;
 import br.com.aps.excecao.Excecao;
 
 
-public class GerentePeriodico {
+public class GerentePeriodico extends Acervo{
 	
 	List<Periodico> listaPeriodico = new ArrayList<Periodico>();
 	

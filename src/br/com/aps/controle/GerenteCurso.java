@@ -6,15 +6,11 @@ import br.com.aps.excecao.Excecao;
 
 public class GerenteCurso {
 
-	List<Curso> listaCursos= new ArrayList<Curso> ();
+	List<Curso> listaCursos= new ArrayList<Curso>();
 
 	public void addCursos(Curso curso) {
-
-		if (curso.getNome() == null) {
-			throw new RuntimeException("o nome do curso é obrigatorio");
-		}
-		if (curso.getCodigo() == null) {
-			throw new RuntimeException("O codigo do curos é obrigatorio");
+		if ((curso.getNome() == null) || (curso.getCodigo() == null)){
+			throw new Excecao("Campos obrigatórios não preenchidos");
 		}
 		isExisteCurso(curso.getCodigo());
 		listaCursos.add(curso);

@@ -5,12 +5,19 @@ import java.util.List;
 
 import br.com.aps.entidade.Professor;
 import br.com.aps.excecao.Excecao;
+import br.com.aps.util.Validador;
 
 public class GerenteProfessor {
 
 	List<Professor> listaProfessor = new ArrayList<Professor>();
 
 	public void addProfessor(Professor professor) {
+		if((professor.getCpf()==null) || (professor.getDepartamento()==null)){
+			throw new Excecao("Campos obrigatórios não preenchidos");
+		}
+		if(Validador.validadorCPF(professor.getCpf())== false){
+			throw new Excecao("CPF inválido");
+		}	
 		isExisteProfessor(professor.getCpf());
 		listaProfessor.add(professor);
 	}
@@ -32,6 +39,7 @@ public class GerenteProfessor {
 	public Professor alterarDadosProfessor(Professor professor) {
 		for (Professor prof : listaProfessor) {
 			if (professor.getCpf().equals(prof.getCpf())) {
+				listaProfessor.remove(prof);
 				prof = professor;
 				listaProfessor.add(prof);
 				return prof;

@@ -1,19 +1,31 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 
 
-public class Emprestimo {
+public class Emprestimo implements Serializable {
 
 	private Pessoa pessoa;
-	private List<Acervo> listaAcervo;
+	private Acervo acervo;
 	private String idSolicitacao;
 	private Date dataEmprestimo;
 	private Date dataDevolucao;
 	private Date dataPrevistaDevolucao;
 	
+	public static final float VALOR_MULTA = (float) 0.50;
+	
+		
+	public Acervo getAcervo() {
+		return acervo;
+	}
+
+	public void setAcervo(Acervo acervo) {
+		this.acervo = acervo;
+	}
+
 	public Date getDataPrevistaDevolucao() {
 		return dataPrevistaDevolucao;
 	}
@@ -27,13 +39,6 @@ public class Emprestimo {
 	}
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
-	}
-	
-	public List<Acervo> getListaAcervo() {
-		return listaAcervo;
-	}
-	public void setListaAcervo(List<Acervo> listaAcervo) {
-		this.listaAcervo = listaAcervo;
 	}
 	
 	public String getIdSolicitacao() {
@@ -71,12 +76,6 @@ public class Emprestimo {
 		if (other.pessoa != null)
 			return false;
 		}else if (!pessoa.equals(other.pessoa))
-			return false;
-		
-		if (listaAcervo == null) {
-		if (other.listaAcervo != null)
-			return false;
-		}else if (!listaAcervo.equals(other.listaAcervo))
 			return false;
 		
 		if (idSolicitacao == null) {

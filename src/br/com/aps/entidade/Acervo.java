@@ -1,8 +1,10 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 
 
-public class Acervo {
+
+public class Acervo implements Serializable{
 	
 	private int id;
 	private String titulo;
@@ -10,7 +12,16 @@ public class Acervo {
 	private Tema tema;
 	private TipoAcervo tipoAcervo;
 	
+	
+	public Acervo() {
 		
+		this.id = 0;
+		this.titulo = "";
+		this.autor = "";
+		this.tema = null;
+		this.tipoAcervo = null;
+	}
+	
 	public int getId() {
 		return id;
 	}

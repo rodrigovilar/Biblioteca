@@ -2,7 +2,7 @@ package br.com.aps.entidade;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable {
+public class Usuario extends Funcionario implements Serializable {
 
 	/**
 	 * 
@@ -25,8 +25,6 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	//toString
 	
 	@Override
 	public boolean equals(Object obj) {

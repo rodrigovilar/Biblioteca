@@ -5,13 +5,10 @@ import java.io.Serializable;
 
 
 public class Aluno extends Pessoa implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public static final int QUANTIDADE_ACERVO_EMPRESTIMO = 3;
-	private Curso curso;
 	
+	public static final int QUANTIDADE_EMPRESTIMO = 3;
+	private Curso curso;
+		
 	public Curso getCurso() {
 		return curso;
 	}
@@ -31,7 +28,7 @@ public class Aluno extends Pessoa implements Serializable {
 			return false;
 		Aluno other = (Aluno) obj;
 		if (curso == null) {
-		if (other.curso != null)
+			if (other.curso != null)
 			return false;
 		}else if (!curso.equals(other.curso))
 			return false;

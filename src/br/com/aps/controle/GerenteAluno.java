@@ -1,61 +1,64 @@
 package br.com.aps.controle;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-
 import br.com.aps.entidade.Aluno;
 import br.com.aps.excecao.Excecao;
+import br.com.aps.util.Validador;
 
-public class GerenteAluno {
-
-	List<Aluno> listaAluno = new ArrayList<Aluno>();
+public class GerenteAluno implements Serializable {
 
 	public void addAluno(Aluno aluno) {
+		if((aluno.getCurso()== null) || (aluno.getCpf()== null)){
+			throw new Excecao("Campos obrigatórios não preenchidos");
+		}
+		if(Validador.validadorCPF(aluno.getCpf()) == false){
+			throw new Excecao("CPF inválido"); 
+		}
 		isExisteAluno(aluno.getCpf());
-		listaAluno.add(aluno);
+		GerentePersistencia.getInstance().getListaAluno().add(aluno);
+		GerentePersistencia.persistir();
 	}
 
-	public void deleteAluno(Aluno aluno) {
-		retornarAluno(aluno.getCpf());
-		listaAluno.remove(aluno);
-	}
+	public Aluno deleteAluno(Aluno aluno2) {
+		Aluno alunoRemovido;
+			for (Aluno aluno: GerentePersistencia.getInstance().getListaAluno()) {
+				if (aluno.getCpf().equals(aluno2.getCpf())) {
+					GerentePersistencia.getInstance().getListaFuncionarios().remove(aluno);
+					GerentePersistencia.persistir();
+					alunoRemovido = aluno;
+					return alunoRemovido;
+				}
+			}
+			throw new Excecao("Aluno não existente");
+		}
+	
 
 	public Aluno retornarAluno(String cpf) {
-		for (Aluno aluno : listaAluno) {
+		for (Aluno aluno: GerentePersistencia.getInstance().getListaAluno()) {
 			if (aluno.getCpf().equals(cpf));
 			return aluno;
 		}
-		throw new Excecao("Não existe aluno com este cpf");
+		throw new Excecao("Não existe Aluno com este cpf");
 	}
 
 	public Aluno alterarDadosAluno(Aluno aluno) {
-		for (Aluno a : listaAluno) {
-			if (aluno.getCpf().equals(a.getCpf())) {
+		for (Aluno a : GerentePersistencia.getInstance().getListaAluno()) {
+			if (a.getCpf().equals(aluno.getCpf())) {
 				a = aluno;
-				listaAluno.add(a);
+				GerentePersistencia.persistir();
 				return a;
 			}
 		}
-		throw new Excecao("Não existe aluno com este cpf");
+		throw new Excecao("Não existe Aluno com este cpf");
 	}
 	
 	public List<Aluno> getListAluno(){
-		return listaAluno;
+		return GerentePersistencia.getInstance().getListaAluno();
 	}
 
-	public boolean campoCPFNaoPreenchido(){
-		return true;
-	}
-	
-	public boolean cpfvalido(String cpf){
-		if(cpf.length()==15){
-			return true;
-		}else{
-			return false;
-		}
-	}
 	public void isExisteAluno(String cpf){
-		for(Aluno aluno: listaAluno){
+		for(Aluno aluno: GerentePersistencia.getInstance().getListaAluno()){
 			if(aluno.getCpf().equals(cpf))
 				throw new Excecao("Aluno já existente"); 
 		}
