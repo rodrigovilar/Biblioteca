@@ -9,12 +9,14 @@ public class Persistencia implements Serializable {
 	private LinkedList<Funcionario> listaFuncionario;
 	private LinkedList<Emprestimo> listaEmprestimo;
 	private LinkedList<Curso> listaCurso;
+	private LinkedList<Livro> listaLivro;
 
 	public Persistencia() {
 		this.listaAluno = new LinkedList<Aluno>();
 		this.listaFuncionario = new LinkedList<Funcionario>();
 		this.listaEmprestimo = new LinkedList<Emprestimo>();
 		this.listaCurso = new LinkedList<Curso>();
+		this.listaLivro = new LinkedList<Livro>();
 	}
 
 	public LinkedList<Aluno> getListaAluno() {
@@ -31,5 +33,9 @@ public class Persistencia implements Serializable {
 
 	public LinkedList<Curso> getListaCurso() {
 		return listaCurso;
+	}
+
+	public LinkedList<Livro> getListaLivro() {
+		return listaLivro;
 	}
 }

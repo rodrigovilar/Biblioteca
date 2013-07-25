@@ -1,7 +1,7 @@
 package br.com.aps.controle;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.List;
 import br.com.aps.entidade.Curso;
 import br.com.aps.excecao.Excecao;
@@ -34,7 +34,8 @@ public class GerenteCurso implements Serializable {
 
 	public Curso retornarCurso(String cod) {
 		for (Curso curso : GerentePersistencia.getInstance().getListaCurso()) {
-			if (curso.getCodigo().equals(cod));
+			if (curso.getCodigo().equals(cod))
+				;
 
 			return curso;
 		}
@@ -43,24 +44,26 @@ public class GerenteCurso implements Serializable {
 
 	private void isExisteCurso(String codigoCurso) {
 		for (Curso curso : GerentePersistencia.getInstance().getListaCurso()) {
-			if (curso.getCodigo().equals(codigoCurso));
+			if (curso.getCodigo().equals(codigoCurso))
+				;
 
 			throw new Excecao("Curso já existente");
 		}
 	}
-	
-	private Curso alteraDadosDoCurso(Curso curso){
-		for (Curso c: GerentePersistencia.getInstance().getListaCurso()){
-			if (c.getCodigo().equals(curso.getCodigo())){
-			  c = curso;
-			  GerentePersistencia.persistir();
-			  return c;
+
+	private Curso alteraDadosDoCurso(Curso curso) {
+		for (Curso c : GerentePersistencia.getInstance().getListaCurso()) {
+			if (c.getCodigo().equals(curso.getCodigo())) {
+				c = curso;
+				GerentePersistencia.persistir();
+				return c;
 			}
-			
+
 		}
 		throw new Excecao("Não existe curso com este codigo ");
 	}
-	public List<Curso> getListCurso(){
+
+	public List<Curso> getListCurso() {
 		return GerentePersistencia.getInstance().getListaCurso();
 	}
 

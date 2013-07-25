@@ -124,7 +124,7 @@ public class Biblioteca {
 		gl.addLivro(livro);
 	}
 
-	public Livro retornarLivro(int id) {
+	public Livro retornarLivro(String id) {
 		return gl.retornarLivro(id);
 	}
 

@@ -2,21 +2,30 @@ package br.com.aps.entidade;
 
 import java.io.Serializable;
 
-public class Livro extends Acervo implements Serializable{
+public class Livro extends Acervo implements Serializable {
 
 	private String editora;
-	
-		public String getEditora() {
+	private String titulo;
+
+	public String getEditora() {
 		return editora;
 	}
 
 	public void setEditora(String editora) {
 		this.editora = editora;
 	}
-	
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-	
+
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -27,10 +36,10 @@ public class Livro extends Acervo implements Serializable{
 		if (editora == null) {
 			if (other.editora != null)
 				return false;
-		}else if (!editora.equals(other.editora))
+		} else if (!editora.equals(other.editora))
 			return false;
-		
+
 		return true;
-	}	
-	
+	}
+
 }
