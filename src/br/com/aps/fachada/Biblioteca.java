@@ -31,8 +31,6 @@ public class Biblioteca {
 	GerenteLivro gl = new GerenteLivro();
 	GerenteCurso gc = new GerenteCurso();
 	GerenteEmprestimo ge = new GerenteEmprestimo();
-	
-
 
 	public void login(String cpf, String senha) {
 		gu.login(cpf, senha);
@@ -97,7 +95,6 @@ public class Biblioteca {
 		return gf.getListFuncionario();
 	}
 
-
 	// Dados do professor
 	public void addProfessor(Professor professor) {
 		gp.addProfessor(professor);
@@ -122,6 +119,10 @@ public class Biblioteca {
 	// Dados de acervo
 	public void addLivro(Livro livro) {
 		gl.addLivro(livro);
+	}
+
+	public void deleteLivro(Livro livro) {
+		gl.deleteLivro(livro);
 	}
 
 	public Livro retornarLivro(String id) {
@@ -153,11 +154,10 @@ public class Biblioteca {
 		ge.devolverEmprestimo(p);
 	}
 
-	
-	public List<Emprestimo> getListEmprestimo(){
+	public List<Emprestimo> getListEmprestimo() {
 		return ge.getListEmprestimo();
 	}
-	
+
 	// Dados para Curso
 
 	public void addCursos(Curso curso) {
@@ -176,15 +176,14 @@ public class Biblioteca {
 		return gc.getListCurso();
 	}
 
-	//gerais
-	
-	
+	// gerais
+
 }
 
 /*
  * public String livrosAlugadosPorAluno(Aluno aluno) { return
  * ge.livrosAlugadosPorAluno(aluno); }
  * 
- * public String livrosAlugadosPorFuncionario(Funcionario funcionario) {
- * return ge.livrosAlugadosPorFuncionario(funcionario); }
+ * public String livrosAlugadosPorFuncionario(Funcionario funcionario) { return
+ * ge.livrosAlugadosPorFuncionario(funcionario); }
  */

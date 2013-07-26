@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import br.com.aps.entidade.Aluno;
 import br.com.aps.entidade.Curso;
 import br.com.aps.entidade.Emprestimo;
@@ -101,7 +100,7 @@ public class BibliotecaTest {
 		aluno.setCpf(null);
 		aluno.setTelefone("87234567");
 		aluno.setCurso(criarCurso());
-		
+
 		fachada.addAluno(aluno);
 	}
 
@@ -145,7 +144,7 @@ public class BibliotecaTest {
 		fachada.alterarDadosAluno(a);
 		Assert.assertEquals(alunoCadastrado, a);
 	}
-	
+
 	@Test(expected = Excecao.class)
 	public void AddAlunoCPFInvalido() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
@@ -158,6 +157,7 @@ public class BibliotecaTest {
 		fachada.addAluno(aluno);
 	}
 
+	// funcionario
 	@Test
 	public void addFuncionario() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
@@ -286,6 +286,7 @@ public class BibliotecaTest {
 		fachada.deleteProfessor(w);
 	}
 
+	// curso
 	@Test
 	public void addCurso() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
@@ -311,7 +312,7 @@ public class BibliotecaTest {
 		Curso curso = new Curso();
 		curso.setCodigo(null);
 		curso.setNome("LCC");
-		
+
 		fachada.addCursos(curso);
 	}
 
@@ -336,6 +337,7 @@ public class BibliotecaTest {
 		fachada.deleteCurso(c);
 	}
 
+	// Livro
 	@Test
 	public void addLivro() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
@@ -345,6 +347,12 @@ public class BibliotecaTest {
 		List<Livro> listaLivro = fachada.getListLivro();
 		Livro cadastroDeLivros = listaLivro.get(0);
 		Assert.assertEquals(cadastroDeLivros, livro);
+	}
+
+	@Test(expected = Excecao.class)
+	public void removerLivro() {
+		Livro livro = criarLivro();
+		fachada.deleteLivro(livro);
 	}
 
 	@Test
@@ -397,9 +405,9 @@ public class BibliotecaTest {
 		fachada.devolverEmprestimo(emprestimoCadastrado);
 		Assert.assertEquals(emprestimoCadastrado, ep);
 	}
-	
+
 	@Test(expected = Excecao.class)
-	public void AlunoDevolveEmprestimoForaDoPrazoEPendeciaPagamentoMulta(){
+	public void AlunoDevolveEmprestimoForaDoPrazoEPendeciaPagamentoMulta() {
 		Emprestimo ep = criarEmprestimoComDevolucaoForadoPrazo();
 		fachada.realizaEmprestimo(ep);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
@@ -428,7 +436,7 @@ public class BibliotecaTest {
 		Emprestimo emprestimoCadastrado = listaEmprestimo.get(0);
 		Assert.assertEquals(emprestimoCadastrado, ep);
 	}
-	
+
 	@Test
 	public void ProfessorDevolverEmprestimoForaPrazo() {
 		Emprestimo ep = criarEmprestimoComDevolucaoForadoPrazo();
@@ -450,7 +458,7 @@ public class BibliotecaTest {
 		aluno.setTipoPessoa(TipoPessoa.ALUNO);
 		return aluno;
 	}
-	
+
 	private Aluno criarAluno3() {
 		Aluno aluno = new Aluno();
 		aluno.setNome("J");
@@ -461,7 +469,7 @@ public class BibliotecaTest {
 		aluno.setTipoPessoa(TipoPessoa.ALUNO);
 		return aluno;
 	}
-	
+
 	private Aluno criarAluno2() {
 		Aluno aluno = new Aluno();
 		aluno.setNome("Jose");
@@ -494,7 +502,7 @@ public class BibliotecaTest {
 		funcionario.setTipoPessoa(TipoPessoa.FUNCIONARIO);
 		return funcionario;
 	}
-	
+
 	private Funcionario criarFuncionario2() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("Jo");
@@ -505,6 +513,7 @@ public class BibliotecaTest {
 		funcionario.setTipoPessoa(TipoPessoa.FUNCIONARIO);
 		return funcionario;
 	}
+
 	private Usuario criarUsuarioAdministrador() {
 		Usuario usuario = new Usuario();
 		usuario.setLogin("3333");
@@ -563,7 +572,6 @@ public class BibliotecaTest {
 		periodico.setTitulo("kkdsds");
 		return periodico;
 	}
-
 
 	@SuppressWarnings("deprecation")
 	private Date criarDataEmprestimo() {
