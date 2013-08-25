@@ -3,27 +3,29 @@ package br.com.aps.controle;
 import java.io.Serializable;
 import java.util.List;
 import br.com.aps.entidade.Aluno;
+import br.com.aps.entidade.Pessoa;
 import br.com.aps.excecao.Excecao;
 import br.com.aps.util.Validador;
 
 public class GerenteAluno implements Serializable {
 
-	public void addAluno(Aluno aluno) {
-		if((aluno.getCurso()== null) || (aluno.getCpf()== null)){
-			throw new Excecao("Campos obrigatórios não preenchidos");
-		}
-		if(Validador.validadorCPF(aluno.getCpf()) == false){
-			throw new Excecao("CPF inválido"); 
-		}
-		isExisteAluno(aluno.getCpf());
-		GerentePersistencia.getInstance().getListaAluno().add(aluno);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void addAluno(Aluno alunoo) {
+		Validador.validadorCPF(alunoo.getCpf());
+		validadorCamposPreenchidos(alunoo);
+		isExisteAluno(alunoo.getCpf());
+		GerentePersistencia.getInstance().getListaAluno().add(alunoo);
 		GerentePersistencia.persistir();
 	}
 
-	public Aluno deleteAluno(Aluno aluno2) {
+	public Aluno deleteAluno(String cpf) {
 		Aluno alunoRemovido;
 			for (Aluno aluno: GerentePersistencia.getInstance().getListaAluno()) {
-				if (aluno.getCpf().equals(aluno2.getCpf())) {
+				if (aluno.getCpf().equals(cpf)) {
 					GerentePersistencia.getInstance().getListaAluno().remove(aluno);
 					GerentePersistencia.persistir();
 					alunoRemovido = aluno;
@@ -34,7 +36,7 @@ public class GerenteAluno implements Serializable {
 		}
 	
 
-	public Aluno retornarAluno(String cpf) {
+	public Aluno consultarAluno(String cpf) {
 		for (Aluno aluno: GerentePersistencia.getInstance().getListaAluno()) {
 			if (aluno.getCpf().equals(cpf));
 			return aluno;
@@ -57,10 +59,16 @@ public class GerenteAluno implements Serializable {
 		return GerentePersistencia.getInstance().getListaAluno();
 	}
 
-	public void isExisteAluno(String cpf){
+	private void isExisteAluno(String cpf){
 		for(Aluno aluno: GerentePersistencia.getInstance().getListaAluno()){
 			if(aluno.getCpf().equals(cpf))
 				throw new Excecao("Aluno já existente"); 
 		}
+	}
+	
+	private boolean validadorCamposPreenchidos(Aluno aluno){
+			if((aluno.getCurso()== null) || (aluno.getCpf()== null))
+				throw new Excecao("Campos obrigatórios não preenchidos");
+			return true;
 	}
 }

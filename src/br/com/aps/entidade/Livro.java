@@ -5,8 +5,15 @@ import java.io.Serializable;
 public class Livro extends Acervo implements Serializable {
 
 	private String editora;
-	private String titulo;
-
+	
+	public Livro(String editora){
+		this.editora = editora;
+	}
+	
+	public Livro(){
+		
+	}
+	
 	public String getEditora() {
 		return editora;
 	}
@@ -15,13 +22,6 @@ public class Livro extends Acervo implements Serializable {
 		this.editora = editora;
 	}
 
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -41,5 +41,4 @@ public class Livro extends Acervo implements Serializable {
 
 		return true;
 	}
-
 }

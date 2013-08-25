@@ -1,7 +1,9 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 
-public class Departamento {
+
+public class Departamento implements Serializable {
 	
 	private String setor;
 	

@@ -6,7 +6,7 @@ import java.util.Date;
 public class Periodico extends Acervo implements Serializable {
 
 	private Date dataPublicacao;
-	
+
 	public Date getDataPublicacao() {
 		return dataPublicacao;
 	}
@@ -14,10 +14,10 @@ public class Periodico extends Acervo implements Serializable {
 	public void setDataPublicacao(Date dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-	
+
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -26,12 +26,11 @@ public class Periodico extends Acervo implements Serializable {
 			return false;
 		Periodico other = (Periodico) obj;
 		if (dataPublicacao == null) {
-		if (other.dataPublicacao!= null)
+			if (other.dataPublicacao != null)
+				return false;
+		} else if (!dataPublicacao.equals(other.dataPublicacao))
 			return false;
-		}else if (!dataPublicacao.equals(other.dataPublicacao))
-			return false;
-		
+
 		return true;
 	}
-	
 }

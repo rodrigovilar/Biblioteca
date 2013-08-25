@@ -1,6 +1,8 @@
 package br.com.aps.entidade;
 
-public class Curso {
+import java.io.Serializable;
+
+public class Curso implements Serializable{
 
 	private String nome;
 	private String codigo;

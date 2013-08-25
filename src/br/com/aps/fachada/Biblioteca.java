@@ -1,7 +1,6 @@
 package br.com.aps.fachada;
 
 import java.util.List;
-import java.util.Map;
 
 import br.com.aps.controle.GerenteAluno;
 import br.com.aps.controle.GerenteCurso;
@@ -11,7 +10,6 @@ import br.com.aps.controle.GerenteLivro;
 import br.com.aps.controle.GerentePeriodico;
 import br.com.aps.controle.GerenteProfessor;
 import br.com.aps.controle.GerenteUsuario;
-import br.com.aps.entidade.Acervo;
 import br.com.aps.entidade.Aluno;
 import br.com.aps.entidade.Curso;
 import br.com.aps.entidade.Emprestimo;
@@ -57,12 +55,12 @@ public class Biblioteca {
 		ga.addAluno(aluno);
 	}
 
-	public Aluno deleteAluno(Aluno aluno) {
-		return ga.deleteAluno(aluno);
+	public Aluno deleteAluno(String cpf) {
+		return ga.deleteAluno(cpf);
 	}
 
 	public Aluno retornarAluno(String cpfAluno) {
-		return ga.retornarAluno(cpfAluno);
+		return ga.consultarAluno(cpfAluno);
 	}
 
 	public Aluno alterarDadosAluno(Aluno aluno) {
@@ -79,12 +77,12 @@ public class Biblioteca {
 		gf.addFuncionario(funcionario);
 	}
 
-	public Funcionario deleteFuncionario(Funcionario funcionario) {
-		return gf.deleteFuncionario(funcionario);
+	public Funcionario deleteFuncionario(String cpf) {
+		return gf.deleteFuncionario(cpf);
 	}
 
 	public Funcionario retornarFuncionario(String cpfFuncionario) {
-		return gf.retornarFuncionario(cpfFuncionario);
+		return gf.consultarFuncionario(cpfFuncionario);
 	}
 
 	public Funcionario alterarDadosFuncionario(Funcionario funcionario) {
@@ -100,12 +98,12 @@ public class Biblioteca {
 		gp.addProfessor(professor);
 	}
 
-	public void deleteProfessor(Professor professor) {
-		gp.deleteProfessor(professor);
+	public void deleteProfessor(String cpf) {
+		gp.deleteProfessor(cpf);
 	}
 
 	public Professor retornarProfessor(String cpfProfessor) {
-		return gp.retornarProfessor(cpfProfessor);
+		return gp.consultarProfessor(cpfProfessor);
 	}
 
 	public Professor alterarDadosProfessor(Professor professor) {
@@ -121,12 +119,12 @@ public class Biblioteca {
 		gl.addLivro(livro);
 	}
 
-	public void deleteLivro(Livro livro) {
-		gl.deleteLivro(livro);
+	public void deleteLivro(int id) {
+		gl.deleteLivro(id);
 	}
 
-	public Livro retornarLivro(String id) {
-		return gl.retornarLivro(id);
+	public Livro retornarLivro(int id) {
+		return gl.consultarLivro(id);
 	}
 
 	public List<Livro> getListLivro() {
@@ -137,8 +135,12 @@ public class Biblioteca {
 		gperiod.addPeriodico(periodico);
 	}
 
+	public Periodico deletePeriodico(int id) {
+		return gperiod.deletePeriodico(id);
+	}
+	
 	public Periodico retornarPeriodico(int id) {
-		return gperiod.retornarPeriodico(id);
+		return gperiod.consultarPeriodico(id);
 	}
 
 	public List<Periodico> getListPeriodico() {
@@ -168,8 +170,8 @@ public class Biblioteca {
 		return gc.retornarCurso(cod);
 	}
 
-	public void deleteCurso(Curso curso) {
-		gc.deleteCurso(curso);
+	public void deleteCurso(String codigo) {
+		gc.deleteCurso(codigo);
 	}
 
 	public List<Curso> getListCurso() {

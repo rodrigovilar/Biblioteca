@@ -3,6 +3,7 @@ package br.com.aps.controle;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.aps.entidade.Aluno;
 import br.com.aps.entidade.Funcionario;
 import br.com.aps.excecao.Excecao;
 import br.com.aps.util.Validador;
@@ -11,12 +12,9 @@ public class GerenteFuncionario implements Serializable{
 
 	
 	public void addFuncionario(Funcionario funcionario) {
-		if((funcionario.getCpf()==null) || (funcionario.getSetor()==null)){
-			throw new Excecao("Campos obrigatórios não preenchidos");
-		}
-		if(Validador.validadorCPF(funcionario.getCpf())== false){
-			throw new Excecao("CPF inválido");
-		}
+		
+		validadorCamposPreenchidos(funcionario);
+		Validador.validadorCPF(funcionario.getCpf());
 		isExisteFuncionario(funcionario.getCpf());
 		
 		GerentePersistencia.getInstance().getListaFuncionarios().add(funcionario);
@@ -24,10 +22,10 @@ public class GerenteFuncionario implements Serializable{
 		
 	}
 
-	public Funcionario deleteFuncionario(Funcionario funcionario) {
+	public Funcionario deleteFuncionario(String cpf) {
 		Funcionario funRemovido;
 		for (Funcionario f : GerentePersistencia.getInstance().getListaFuncionarios()) {
-			if (f.getCpf().equals(funcionario.getCpf())) {
+			if (f.getCpf().equals(cpf)) {
 				GerentePersistencia.getInstance().getListaFuncionarios().remove(f);
 				GerentePersistencia.persistir();
 				funRemovido = f;
@@ -38,7 +36,7 @@ public class GerenteFuncionario implements Serializable{
 	}
 
 
-	public Funcionario retornarFuncionario(String cpfFuncionario) {
+	public Funcionario consultarFuncionario(String cpfFuncionario) {
 		for (Funcionario funcionario : GerentePersistencia.getInstance().getListaFuncionarios()) {
 			if (funcionario.getCpf().equals(cpfFuncionario))
 				return funcionario;
@@ -68,6 +66,13 @@ public class GerenteFuncionario implements Serializable{
 				throw new Excecao("Funcionário já existente"); 
 		}
 	}
+	
+	private boolean validadorCamposPreenchidos(Funcionario funcionario){
+		if((funcionario.getCpf()==null) || (funcionario.getSetor()==null))
+			throw new Excecao("Campos obrigatórios não preenchidos");
+		
+		return true;
+}
 	
 
 }

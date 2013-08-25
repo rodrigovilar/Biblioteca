@@ -13,16 +13,6 @@ public class Pessoa implements Serializable{
 	private List<Emprestimo> listaEmprestimo;
 	
 	
-	public Pessoa(){
-		this.nome="sem nome";
-		this.matricula = "sem matricula";
-		this.telefone = null;
-		this.cpf="";
-	}
-	
-	
-	
-	
 	public List<Emprestimo> getListaEmprestimo() {
 		return listaEmprestimo;
 	}

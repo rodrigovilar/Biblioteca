@@ -9,17 +9,27 @@ public class Acervo implements Serializable{
 	private int id;
 	private String titulo;
 	private String autor;
-	private Tema tema;
+	private String area;
 	private TipoAcervo tipoAcervo;
+	private Situacao situacao;
 	
+	public Acervo(int id, String titulo, String autor, String area, TipoAcervo tipoAcervo, Situacao situacao){
+		this.id = id;
+		this.titulo = titulo;
+		this.autor = autor;
+		this.area = area;
+		this.tipoAcervo = tipoAcervo;
+		this.situacao = situacao;
+	}
 	
 	public Acervo() {
 		
 		this.id = 0;
 		this.titulo = "";
 		this.autor = "";
-		this.tema = null;
+		this.area = null;
 		this.tipoAcervo = null;
+		this.situacao = null;
 	}
 	
 	public int getId() {
@@ -43,11 +53,11 @@ public class Acervo implements Serializable{
 		this.autor = autor;
 	}
 	
-	public Tema getTema() {
-		return tema;
+	public String getArea() {
+		return area;
 	}
-	public void setTema(Tema tema) {
-		this.tema = tema;
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	public TipoAcervo getTipoAcervo() {
@@ -57,6 +67,14 @@ public class Acervo implements Serializable{
 		this.tipoAcervo = tipoAcervo;
 	}
 	
+	
+	public Situacao getSituacao() {
+		return situacao;
+	}
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,16 +106,22 @@ public class Acervo implements Serializable{
 		} else if (!autor.equals(other.autor))
 			return false;
 		
-		if (tema == null) {
-			if (other.tema != null)
+		if (area == null) {
+			if (other.area != null)
 				return false;
-		} else if (!tema.equals(other.tema))
+		} else if (!area.equals(other.area))
 			return false;
 		
 		if (tipoAcervo == null) {
 			if (other.tipoAcervo != null)
 				return false;
 		} else if (!tipoAcervo.equals(other.tipoAcervo))
+			return false;
+		
+		if (situacao == null) {
+			if (other.situacao != null)
+				return false;
+		} else if (!situacao.equals(other.situacao))
 			return false;
 		return true;
 	}

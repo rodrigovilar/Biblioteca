@@ -1,7 +1,9 @@
 package br.com.aps.entidade;
 
+import java.io.Serializable;
 
-public class Tema {
+
+public class Tema implements Serializable {
 
 	private String area;
 	private String descricao;
