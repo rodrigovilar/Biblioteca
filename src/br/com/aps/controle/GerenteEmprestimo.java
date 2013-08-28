@@ -1,10 +1,14 @@
 package br.com.aps.controle;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 
+import br.com.aps.entidade.Acervo;
 import br.com.aps.entidade.Emprestimo;
+import br.com.aps.entidade.Livro;
 import br.com.aps.entidade.Situacao;
 import br.com.aps.excecao.Excecao;
 import br.com.aps.util.Validador;
@@ -43,7 +47,7 @@ public class GerenteEmprestimo implements Serializable {
 		}
 	}
 
-	public List<Emprestimo> getListEmprestimo() {
+	public LinkedList<Emprestimo> getListEmprestimo() {
 		return GerentePersistencia.getInstance().getListaEmprestimos();
 	}
 	

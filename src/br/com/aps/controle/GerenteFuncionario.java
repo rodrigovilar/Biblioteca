@@ -26,7 +26,7 @@ public class GerenteFuncionario implements Serializable{
 		Funcionario funRemovido;
 		for (Funcionario f : GerentePersistencia.getInstance().getListaFuncionarios()) {
 			if (f.getCpf().equals(cpf)) {
-				GerentePersistencia.getInstance().getListaFuncionarios().remove(f);
+				GerentePersistencia.getInstance().getListaFuncionarios().remove(f.getCpf());
 				GerentePersistencia.persistir();
 				funRemovido = f;
 				return funRemovido;
