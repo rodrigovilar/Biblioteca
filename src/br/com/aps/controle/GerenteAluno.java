@@ -26,7 +26,7 @@ public class GerenteAluno implements Serializable {
 		Aluno alunoRemovido;
 			for (Aluno aluno: GerentePersistencia.getInstance().getListaAluno()) {
 				if (aluno.getCpf().equals(cpf)) {
-					GerentePersistencia.getInstance().getListaAluno().remove(aluno.getCpf());
+					GerentePersistencia.getInstance().getListaAluno().remove(aluno);
 					GerentePersistencia.persistir();
 					alunoRemovido = aluno;
 					return alunoRemovido;

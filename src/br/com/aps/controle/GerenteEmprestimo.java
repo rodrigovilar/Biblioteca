@@ -56,7 +56,7 @@ public class GerenteEmprestimo implements Serializable {
 			int quantdia = dataDiff(empr.getDataDevolucao(),
 					empr.getDataPrevistaDevolucao());
 			if (quantdia > 0) {
-				throw new Excecao("Emprestimo com pendencia de multa");
+				throw new Excecao("Emprestimo com pendencia de multa" + "O valor da multa é: ");
 			}
 		}
 		return false;
