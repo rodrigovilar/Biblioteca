@@ -1,12 +1,9 @@
 package br.com.aps.util;
 
-import java.util.List;
-
 import br.com.aps.controle.GerentePersistencia;
 import br.com.aps.entidade.Aluno;
 import br.com.aps.entidade.Emprestimo;
 import br.com.aps.entidade.Funcionario;
-import br.com.aps.entidade.Periodico;
 import br.com.aps.entidade.Situacao;
 import br.com.aps.entidade.TipoAcervo;
 import br.com.aps.entidade.TipoPessoa;
@@ -33,20 +30,23 @@ public class Validador {
 			throw new Excecao("Acervo emprestado");
 		}
 		
-		for (Emprestimo ep : GerentePersistencia.getInstance().getListaEmprestimos()) {
+		if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO) && (emprestimo.getAcervo().getTipoAcervo() == TipoAcervo.PERIODICO)) {
+			throw new Excecao("Aluno não pode pegar periodico");
+		} 
+
+		for (Emprestimo ep : GerentePersistencia.getInstance()
+				.getListaEmprestimos()) {
 			if (ep.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO) {
-				if (ep.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO) 
-					throw new Excecao("Aluno não pode pegar mais de dois livros.");
-			
-				if(ep.getPessoa().getListaEmprestimo() instanceof Periodico)
-					throw new Excecao("Aluno, nao pode pegar periodico");
+				if (ep.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO)
+					throw new Excecao(
+							"Aluno não pode pegar mais de dois livros.");
 			}
-					
+
 			if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.FUNCIONARIO)
-				&& (emprestimo.getPessoa().getListaEmprestimo().size() > Funcionario.QUANTIDADE_ACERVO_EMPRESTIMO)) {
-				throw new Excecao("Funcionário não pode pegar mais de cinco livros.");
+					&& (emprestimo.getPessoa().getListaEmprestimo().size() > Funcionario.QUANTIDADE_ACERVO_EMPRESTIMO)) {
+				throw new Excecao(
+						"Funcionário não pode pegar mais de cinco livros.");
 			}
 		}
 	}
 }
-	

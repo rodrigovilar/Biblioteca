@@ -17,15 +17,9 @@ public class Pessoa implements Serializable{
 		return listaEmprestimo;
 	}
 
-
-
-
 	public void setListaEmprestimo(List<Emprestimo> listaEmprestimo) {
 		this.listaEmprestimo = listaEmprestimo;
 	}
-
-
-
 
 	public String getNome() {
 		return nome;

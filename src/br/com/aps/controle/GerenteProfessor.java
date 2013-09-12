@@ -36,8 +36,7 @@ public class GerenteProfessor {
 	public Professor consultarProfessor(String cpfProfessor) {
 		for (Professor professor : GerentePersistencia.getInstance()
 				.getListaProfessor()) {
-			if (professor.getCpf().equals(cpfProfessor))
-				;
+			if (professor.getCpf().equals(cpfProfessor));
 			return professor;
 		}
 		throw new Excecao("Não existe professor com este cpf");
