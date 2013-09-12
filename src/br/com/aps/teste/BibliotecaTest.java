@@ -724,11 +724,11 @@ public class BibliotecaTest {
 	@Test(expected = Excecao.class)
 	public void realizarEmprestimoComPeriodicoParaAluno() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
-		Emprestimo ep1 = criarEmprestimoAluno();
+		Emprestimo emprestimo = criarEmprestimoAluno();
 		Periodico periodico = criarPeriodico();
 		fachada.addPeriodico(periodico);
-		ep1.setAcervo(periodico);
-		fachada.realizaEmprestimo(ep1);
+		emprestimo.setAcervo(periodico);
+		fachada.realizaEmprestimo(emprestimo);
 	}
 
 	@Test
@@ -753,6 +753,7 @@ public class BibliotecaTest {
 	public void AlunodevolverEmprestimoForaDoPrazoEComMultaPaga() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
 		Emprestimo ep = criarEmprestimoAluno();
+		ep.setDataDevolucao(criarDataEntregaForaDoPrazo());
 		fachada.realizaEmprestimo(ep);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
 		Emprestimo emprestimoCadastrado = listaEmprestimo.get(0);
@@ -761,7 +762,7 @@ public class BibliotecaTest {
 		Assert.assertEquals(emprestimoCadastrado, ep);
 	}
 
-	@Test(expected = Excecao.class)
+	@Test
 	public void AlunoDevolveEmprestimoForaDoPrazoEPendeciaPagamentoMulta() {
 		criarUsuarioAdministrador_E_FazLoginSistema();
 		Emprestimo ep = criarEmprestimoAluno();
@@ -771,6 +772,7 @@ public class BibliotecaTest {
 		Emprestimo emprestimoCadastrado = listaEmprestimo.get(0);
 
 		fachada.devolverEmprestimo(emprestimoCadastrado);
+		Assert.assertEquals(emprestimoCadastrado, ep);
 	}
 	
 	@Test

@@ -38,9 +38,8 @@ public class Validador {
 				if (ep.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO) 
 					throw new Excecao("Aluno não pode pegar mais de dois livros.");
 			
-				if (ep.getPessoa().getListaEmprestimo().contains(TipoAcervo.PERIODICO)) 
+				if(ep.getPessoa().getListaEmprestimo() instanceof Periodico)
 					throw new Excecao("Aluno, nao pode pegar periodico");
-				
 			}
 					
 			if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.FUNCIONARIO)
