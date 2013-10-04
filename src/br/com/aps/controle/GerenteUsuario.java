@@ -16,11 +16,11 @@ public class GerenteUsuario {
 		return usuarioLogado;
 	}
 
-	public void login(String cpf, String senha) {
+	public boolean login(String cpf, String senha) {
 		for (Usuario usuario: GerentePersistencia.getInstance().getListaUsuario()) {
 				if (usuario.getLogin().equals(cpf) && (usuario.getSenha().equals(senha)))
 						usuarioLogado = usuario;
-				return;
+				return true;
 			}
 		throw new Excecao("O usuário não tem cadastro");
 	}

@@ -98,8 +98,8 @@ public class Biblioteca {
 		gp.addProfessor(professor);
 	}
 
-	public void deleteProfessor(String cpf) {
-		gp.deleteProfessor(cpf);
+	public Professor deleteProfessor(String cpf) {
+		return gp.deleteProfessor(cpf);
 	}
 
 	public Professor retornarProfessor(String cpfProfessor) {
@@ -119,8 +119,8 @@ public class Biblioteca {
 		gl.addLivro(livro);
 	}
 
-	public void deleteLivro(int id) {
-		gl.deleteLivro(id);
+	public Livro deleteLivro(int id) {
+		return gl.deleteLivro(id);
 	}
 
 	public Livro retornarLivro(int id) {
@@ -170,8 +170,8 @@ public class Biblioteca {
 		return gc.retornarCurso(cod);
 	}
 
-	public void deleteCurso(String codigo) {
-		gc.deleteCurso(codigo);
+	public Curso deleteCurso(String codigo) {
+		return gc.deleteCurso(codigo);
 	}
 
 	public List<Curso> getListCurso() {

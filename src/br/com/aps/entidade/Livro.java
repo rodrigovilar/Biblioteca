@@ -5,8 +5,10 @@ import java.io.Serializable;
 public class Livro extends Acervo implements Serializable {
 
 	private String editora;
-	
-	public Livro(String editora){
+
+	public Livro(int id, String titulo, String autor, String area,
+			TipoAcervo tipoAcervo, Situacao situacao, String editora) {
+		super(id, titulo, autor, area, tipoAcervo, situacao);
 		this.editora = editora;
 	}
 	
