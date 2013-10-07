@@ -6,6 +6,16 @@ import java.util.Date;
 public class Periodico extends Acervo implements Serializable {
 
 	private Date dataPublicacao;
+	
+	public Periodico(){
+		
+	}
+	
+	public Periodico(int id, String titulo, String autor, String area,
+			TipoAcervo tipoAcervo, Situacao situacao, Date dataPublicacao){
+		super(id, titulo, autor, area, tipoAcervo, situacao);
+		this.dataPublicacao = dataPublicacao;
+	}
 
 	public Date getDataPublicacao() {
 		return dataPublicacao;

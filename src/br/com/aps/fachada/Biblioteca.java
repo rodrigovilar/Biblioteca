@@ -38,14 +38,18 @@ public class Biblioteca {
 		gu.addUsuario(usuario);
 	}
 
-	public void deleteAdministrador(String cpfUsuario) {
-		gu.deleteUsuario(cpfUsuario);
+	public Usuario deleteUsuario(String cpfUsuario) {
+		return gu.deleteUsuario(cpfUsuario);
 	}
 
 	public Usuario retornarUsuario(String cpfUsuario) {
 		return gu.consultarUsuario(cpfUsuario);
 	}
 
+	public Usuario alterarDadosUsuario(Usuario usuario) {
+		return gu.alterarDadosUsuario(usuario);
+	}
+	
 	public List<Usuario> getListUsuario() {
 		return gu.getListUsuario();
 	}

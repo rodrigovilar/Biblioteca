@@ -29,24 +29,39 @@ public class Validador {
 		if (emprestimo.getAcervo().getSituacao() != Situacao.DISPONIVEL) {
 			throw new Excecao("Acervo emprestado");
 		}
-		
-		if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO) && (emprestimo.getAcervo().getTipoAcervo() == TipoAcervo.PERIODICO)) {
+
+		if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO)
+				&& (emprestimo.getAcervo().getTipoAcervo() == TipoAcervo.PERIODICO)) {
 			throw new Excecao("Aluno não pode pegar periodico");
-		} 
+		}
 
 		for (Emprestimo ep : GerentePersistencia.getInstance()
 				.getListaEmprestimos()) {
+
 			if (ep.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO) {
-				if (ep.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO)
+				if (ep.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO) {
 					throw new Excecao(
 							"Aluno não pode pegar mais de dois livros.");
+				}
+				if (ep.getAcervo().getTitulo()
+						.equals(ep.getAcervo().getTitulo())) {
+					throw new Excecao(
+							"Aluno não pode pegar dois livros iguais.");
+				}
 			}
 
-			if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.FUNCIONARIO)
-					&& (emprestimo.getPessoa().getListaEmprestimo().size() > Funcionario.QUANTIDADE_ACERVO_EMPRESTIMO)) {
-				throw new Excecao(
-						"Funcionário não pode pegar mais de cinco livros.");
+			if (ep.getPessoa().getTipoPessoa() == TipoPessoa.FUNCIONARIO) {
+				if (ep.getPessoa().getListaEmprestimo().size() > Funcionario.QUANTIDADE_ACERVO_EMPRESTIMO) {
+					throw new Excecao(
+							"Funcionário não pode pegar mais de cinco livros.");
+				}
+				if (ep.getAcervo().getTitulo()
+						.equals(ep.getAcervo().getTitulo())) {
+					throw new Excecao(
+							"Aluno não pode pegar dois livros iguais.");
+				}
 			}
+
 		}
 	}
 }

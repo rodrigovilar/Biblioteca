@@ -3,6 +3,7 @@ package br.com.aps.controle;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.aps.entidade.Aluno;
 import br.com.aps.entidade.Professor;
 import br.com.aps.entidade.Usuario;
 import br.com.aps.excecao.Excecao;
@@ -54,6 +55,17 @@ public class GerenteUsuario {
 				return usuario;
 		}
 		throw new Excecao("Não existe usuário com este cpf");
+	}
+
+	public Usuario alterarDadosUsuario(Usuario usuario) {
+		for (Usuario u: GerentePersistencia.getInstance().getListaUsuario()) {
+			if (u.getCpf().equals(usuario.getCpf())) {
+				u = usuario;
+				GerentePersistencia.persistir();
+				return u;
+			}
+		}
+		throw new Excecao("Não existe Usuário com este cpf");
 	}
 	
 	public List<Usuario> getListUsuario(){
