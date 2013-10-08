@@ -16,10 +16,8 @@ import br.com.aps.entidade.Emprestimo;
 import br.com.aps.entidade.Funcionario;
 import br.com.aps.entidade.Livro;
 import br.com.aps.entidade.Periodico;
-import br.com.aps.entidade.Pessoa;
 import br.com.aps.entidade.Professor;
 import br.com.aps.entidade.Situacao;
-import br.com.aps.entidade.Tema;
 import br.com.aps.entidade.TipoAcervo;
 import br.com.aps.entidade.TipoPessoa;
 import br.com.aps.entidade.Usuario;
@@ -579,8 +577,8 @@ public class BibliotecaTest {
 
 	private Livro criarLivro(int id, String area, String autor, String titulo,
 			TipoAcervo tipo, Situacao situacao, String editora) {
-		Livro livro = new Livro(02, "titulo", "Jose", "Exatas", tipo.LIVRO,
-				situacao.DISPONIVEL, "Editora");
+		Livro livro = new Livro(02, "titulo", "Jose", "Exatas", TipoAcervo.LIVRO,
+				Situacao.DISPONIVEL, "Editora");
 		fachada.addLivro(livro);
 		return livro;
 	}
@@ -665,7 +663,7 @@ public class BibliotecaTest {
 			String titulo, TipoAcervo tipo, Situacao situacao,
 			Date dataPublicacao) {
 		Periodico periodico = new Periodico(02, "titulo", "Jose", "Exatas",
-				tipo.PERIODICO, situacao.DISPONIVEL, criarDataPublicacao());
+				TipoAcervo.PERIODICO, Situacao.DISPONIVEL, criarDataPublicacao());
 		return periodico;
 	}
 
