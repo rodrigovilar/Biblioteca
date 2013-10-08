@@ -674,7 +674,8 @@ public class BibliotecaTest {
 	@Test
 	public void realizarEmprestimoParaAluno() {
 		criarUsuarioAdministradorEFazLoginSistema();
-		Emprestimo ep = criarEmprestimoAluno(criarLivro(), criarAluno(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+		Emprestimo ep = criarEmprestimoAluno(criarLivro(), criarAluno(), "01",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.addAluno(criarAluno());
 		fachada.realizaEmprestimo(ep);
 
@@ -688,24 +689,37 @@ public class BibliotecaTest {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Aluno aluno = criarAluno();
 		fachada.addAluno(aluno);
-		
-		Emprestimo ep = criarEmprestimoAluno(criarLivro(), aluno, "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+
+		Emprestimo ep = criarEmprestimoAluno(criarLivro(), aluno, "01",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep);
 
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
 		Emprestimo emprestimoCadastrado = listaEmprestimo.get(0);
 		Assert.assertEquals(emprestimoCadastrado, ep);
 
-		Emprestimo ep2 = criarEmprestimoAluno(criarLivro(), aluno, "02", criarDataEmprestimo(), criarDataPrevistaEntrega());
+		Emprestimo ep2 = criarEmprestimoAluno(criarLivro(), aluno, "02",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep2);
 	}
 
-	private Emprestimo criarEmprestimoAluno(Livro livro, Aluno aluno, String id, Date dataEmprestimo, Date dataPrevistaEntrega) {
+	@Test(expected = Excecao.class)
+	public void AlunoTentaEmprestimoComSituacaoLivroLocado() {
+		Emprestimo ep = criarEmprestimoAluno(
+				criarLivro(02, "titulo", "Jose", "Exatas", TipoAcervo.LIVRO,
+						Situacao.LOCADO, "Editora"), criarAluno(), "01",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
+		fachada.addAluno(criarAluno());
+		fachada.realizaEmprestimo(ep);
+	}
+
+	private Emprestimo criarEmprestimoAluno(Livro livro, Aluno aluno,
+			String id, Date dataEmprestimo, Date dataPrevistaEntrega) {
 		Emprestimo emprestimo = new Emprestimo();
 		fachada.addLivro(livro);
 		emprestimo.setPessoa(aluno);
 		emprestimo.setAcervo(livro);
-		emprestimo.setIdSolicitacao("01");
+		emprestimo.setIdSolicitacao(id);
 		emprestimo.setDataEmprestimo(dataEmprestimo);
 		emprestimo.setDataPrevistaDevolucao(dataPrevistaEntrega);
 		return emprestimo;
@@ -715,7 +729,8 @@ public class BibliotecaTest {
 	public void realizarEmprestimoParaFuncionario() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo ep = criarEmprestimoFuncionario(criarPeriodico(),
-				criarFuncionario(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarFuncionario(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.addFuncionario(criarFuncionario());
 		fachada.realizaEmprestimo(ep);
 
@@ -729,21 +744,24 @@ public class BibliotecaTest {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Funcionario funcionario = criarFuncionario();
 		fachada.addFuncionario(funcionario);
-		
+
 		Emprestimo ep = criarEmprestimoFuncionario(criarPeriodico(),
-				funcionario, "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				funcionario, "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
 		Emprestimo emprestimoCadastrado = listaEmprestimo.get(0);
 		Assert.assertEquals(emprestimoCadastrado, ep);
 
 		Emprestimo ep2 = criarEmprestimoFuncionario(criarPeriodico(),
-				funcionario, "02", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				funcionario, "02", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep2);
 	}
 
 	private Emprestimo criarEmprestimoFuncionario(Periodico periodico,
-			Funcionario funcionario, String id, Date dataEmprestimo, Date dataPrevistaEntrega) {
+			Funcionario funcionario, String id, Date dataEmprestimo,
+			Date dataPrevistaEntrega) {
 		Emprestimo emprestimo = new Emprestimo();
 		fachada.addPeriodico(periodico);
 		emprestimo.setPessoa(funcionario);
@@ -758,7 +776,8 @@ public class BibliotecaTest {
 	public void realizarEmprestimoParaProfessor() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo ep = criarEmprestimoProfessor(criarPeriodico(),
-				criarProfessor(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarProfessor(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.addProfessor(criarProfessor());
 		fachada.realizaEmprestimo(ep);
 
@@ -772,17 +791,20 @@ public class BibliotecaTest {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Professor professor = criarProfessor();
 		fachada.addProfessor(professor);
-		
+
 		Emprestimo emprestimo = criarEmprestimoProfessor(
 				criarPeriodico(01, "titulo", "Jorge", "Exatas",
 						TipoAcervo.PERIODICO, Situacao.DISPONIVEL,
-						criarDataPublicacao()), professor, "1", criarDataEmprestimo(), criarDataPrevistaEntrega());
+						criarDataPublicacao()), professor, "1",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(emprestimo);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
 		Emprestimo emprestimoCadastrado = listaEmprestimo.get(0);
 		Assert.assertEquals(emprestimoCadastrado, emprestimo);
-		
-		Emprestimo emprestimo2 = criarEmprestimoProfessor(criarPeriodico(), professor, "2", criarDataEmprestimo(), criarDataPrevistaEntrega());
+
+		Emprestimo emprestimo2 = criarEmprestimoProfessor(criarPeriodico(),
+				professor, "2", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(emprestimo2);
 		listaEmprestimo = fachada.getListEmprestimo();
 		emprestimoCadastrado = listaEmprestimo.get(1);
@@ -790,15 +812,16 @@ public class BibliotecaTest {
 	}
 
 	private Emprestimo criarEmprestimoProfessor(Periodico periodico,
-			Professor professor, String id, Date dataEmprestimo, Date dataPrevistaEntrega) {
+			Professor professor, String id, Date dataEmprestimo,
+			Date dataPrevistaEntrega) {
 		Emprestimo emprestimo = new Emprestimo();
 		fachada.addPeriodico(periodico);
 
 		emprestimo.setPessoa(professor);
 		emprestimo.setAcervo(periodico);
 		emprestimo.setIdSolicitacao(id);
-		emprestimo.setDataEmprestimo(criarDataEmprestimo());
-		emprestimo.setDataPrevistaDevolucao(criarDataPrevistaEntrega());
+		emprestimo.setDataEmprestimo(dataEmprestimo);
+		emprestimo.setDataPrevistaDevolucao(dataPrevistaEntrega);
 		return emprestimo;
 	}
 
@@ -807,18 +830,21 @@ public class BibliotecaTest {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Aluno aluno = criarAluno();
 		fachada.addAluno(aluno);
-		
-		Emprestimo ep1 = criarEmprestimoAluno(criarLivro(), aluno, "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+
+		Emprestimo ep1 = criarEmprestimoAluno(criarLivro(), aluno, "01",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep1);
 
 		Emprestimo ep2 = criarEmprestimoAluno(
 				criarLivro(02, "abc", "Jose", "Redes", TipoAcervo.LIVRO,
-						Situacao.DISPONIVEL, "editora"), aluno, "02", criarDataEmprestimo(), criarDataPrevistaEntrega());
+						Situacao.DISPONIVEL, "editora"), aluno, "02",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep2);
 
 		Emprestimo ep3 = criarEmprestimoAluno(
 				criarLivro(03, "vcs", "João", "JAVA", TipoAcervo.LIVRO,
-						Situacao.DISPONIVEL, "editora 2"), aluno, "03", criarDataEmprestimo(), criarDataPrevistaEntrega());
+						Situacao.DISPONIVEL, "editora 2"), aluno, "03",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep3);
 	}
 
@@ -827,27 +853,35 @@ public class BibliotecaTest {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Funcionario funcionario = criarFuncionario();
 		fachada.addFuncionario(funcionario);
-		
+
 		Emprestimo ep1 = criarEmprestimoFuncionario(criarPeriodico(),
-				funcionario, "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				funcionario, "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
+		fachada.addPeriodico(criarPeriodico());
 		fachada.realizaEmprestimo(ep1);
 
 		Emprestimo ep2 = criarEmprestimoFuncionario(
 				criarPeriodico(02, "abc", "Jose", "Redes",
 						TipoAcervo.PERIODICO, Situacao.DISPONIVEL,
-						criarDataPublicacao()), funcionario, "02", criarDataEmprestimo(), criarDataPrevistaEntrega());
-			fachada.realizaEmprestimo(ep2);
+						criarDataPublicacao()), funcionario, "02",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
+		fachada.addPeriodico(criarPeriodico());
+		fachada.realizaEmprestimo(ep2);
 
 		Emprestimo ep3 = criarEmprestimoFuncionario(
 				criarPeriodico(03, "fds", "Maria", "JAVA",
 						TipoAcervo.PERIODICO, Situacao.DISPONIVEL,
-						criarDataPublicacao()), funcionario, "03", criarDataEmprestimo(), criarDataPrevistaEntrega());
+						criarDataPublicacao()), funcionario, "03",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
+		fachada.addPeriodico(criarPeriodico());
 		fachada.realizaEmprestimo(ep3);
 
 		Emprestimo ep4 = criarEmprestimoFuncionario(
 				criarPeriodico(04, "ksa", "Marcos", "JOGOS",
 						TipoAcervo.PERIODICO, Situacao.DISPONIVEL,
-						criarDataPublicacao()), funcionario, "04", criarDataEmprestimo(), criarDataPrevistaEntrega());
+						criarDataPublicacao()), funcionario, "04",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
+		fachada.addPeriodico(criarPeriodico());
 		fachada.realizaEmprestimo(ep4);
 	}
 
@@ -855,8 +889,9 @@ public class BibliotecaTest {
 	public void realizarEmprestimoComPeriodicoParaAluno() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo emprestimo = criarEmprestimoAluno(criarLivro(),
-				criarAluno(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
-		fachada.addAluno(criarAluno());		
+				criarAluno(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
+		fachada.addAluno(criarAluno());
 		Periodico periodico = criarPeriodico();
 		fachada.addPeriodico(periodico);
 		emprestimo.setAcervo(periodico);
@@ -877,7 +912,8 @@ public class BibliotecaTest {
 
 	private Emprestimo criarDevolucaoNoPrazo() {
 		Emprestimo emprestimo = criarEmprestimoAluno(criarLivro(),
-				criarAluno(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarAluno(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.addAluno(criarAluno());
 		emprestimo.setDataDevolucao(criarDataPrevistaEntrega());
 		return emprestimo;
@@ -886,7 +922,8 @@ public class BibliotecaTest {
 	@Test
 	public void AlunodevolverEmprestimoForaDoPrazoEComMultaPaga() {
 		criarUsuarioAdministradorEFazLoginSistema();
-		Emprestimo ep = criarEmprestimoAluno(criarLivro(), criarAluno(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+		Emprestimo ep = criarEmprestimoAluno(criarLivro(), criarAluno(), "01",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.addAluno(criarAluno());
 		ep.setDataDevolucao(criarDataEntregaForaDoPrazo());
 		fachada.realizaEmprestimo(ep);
@@ -900,7 +937,8 @@ public class BibliotecaTest {
 	@Test
 	public void AlunoDevolveEmprestimoForaDoPrazoEPendeciaPagamentoMulta() {
 		criarUsuarioAdministradorEFazLoginSistema();
-		Emprestimo ep = criarEmprestimoAluno(criarLivro(), criarAluno(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+		Emprestimo ep = criarEmprestimoAluno(criarLivro(), criarAluno(), "01",
+				criarDataEmprestimo(), criarDataPrevistaEntrega());
 		fachada.addAluno(criarAluno());
 		ep.setDataDevolucao(criarDataEntregaForaDoPrazo());
 		fachada.realizaEmprestimo(ep);
@@ -915,7 +953,8 @@ public class BibliotecaTest {
 	public void FuncionarioDevolveEmprestimoNoPrazo() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo ep = criarEmprestimoFuncionario(criarPeriodico(),
-				criarFuncionario(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarFuncionario(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		ep.setDataDevolucao(criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
@@ -929,7 +968,8 @@ public class BibliotecaTest {
 	public void FuncionarioDevolveEmprestimoForaDoPrazo() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo ep = criarEmprestimoFuncionario(criarPeriodico(),
-				criarFuncionario(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarFuncionario(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		ep.setDataDevolucao(criarDataEntregaForaDoPrazo());
 		fachada.realizaEmprestimo(ep);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
@@ -943,8 +983,10 @@ public class BibliotecaTest {
 	public void ProfessorDevolverEmprestimoForaPrazo() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo ep = criarEmprestimoProfessor(criarPeriodico(),
-				criarProfessor(), "01",criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarProfessor(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.addProfessor(criarProfessor());
+
 		ep.setDataDevolucao(criarDataEntregaForaDoPrazo());
 		fachada.realizaEmprestimo(ep);
 		List<Emprestimo> listaEmprestimo = fachada.getListEmprestimo();
@@ -958,7 +1000,8 @@ public class BibliotecaTest {
 	public void ProfessorDevolverEmprestimoNoPrazo() {
 		criarUsuarioAdministradorEFazLoginSistema();
 		Emprestimo ep = criarEmprestimoProfessor(criarPeriodico(),
-				criarProfessor(), "01", criarDataEmprestimo(), criarDataPrevistaEntrega());
+				criarProfessor(), "01", criarDataEmprestimo(),
+				criarDataPrevistaEntrega());
 		fachada.addProfessor(criarProfessor());
 		ep.setDataDevolucao(criarDataPrevistaEntrega());
 		fachada.realizaEmprestimo(ep);
@@ -971,39 +1014,25 @@ public class BibliotecaTest {
 
 	@SuppressWarnings("deprecation")
 	private Date criarDataEmprestimo() {
-		Date data = new Date();
-		data.setDate(1);
-		data.setMonth(8);
-		data.setYear(2013);
+		Date data = new Date(2013, 8, 1);
 		return data;
 	}
 
 	@SuppressWarnings("deprecation")
 	private Date criarDataPrevistaEntrega() {
-		Date data2 = new Date();
-		data2.setDate(10);
-		data2.setMonth(8);
-		data2.setYear(2013);
+		Date data2 = new Date(2013, 8, 10);
 		return data2;
 	}
 
 	@SuppressWarnings("deprecation")
 	private Date criarDataEntregaForaDoPrazo() {
-		Date data4 = new Date();
-		data4.setDate(15);
-		data4.setMonth(8);
-		data4.setYear(2013);
+		Date data4 = new Date(2013, 8, 15);
 		return data4;
 	}
 
 	@SuppressWarnings("deprecation")
 	private Date criarDataPublicacao() {
-		Date data5 = new Date();
-		data5.setDate(15);
-		data5.setMonth(8);
-		data5.setYear(2010);
+		Date data5 = new Date(2010, 8, 15);
 		return data5;
 	}
-	
-	//TODO teste relacionado a disponivel dos acervos
 }

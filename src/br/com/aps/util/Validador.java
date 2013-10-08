@@ -15,14 +15,14 @@ public class Validador {
 		if (cpf.length() == 14) {
 			return true;
 		} else {
-			throw new Excecao("CPF inv·lido");
+			throw new Excecao("CPF inv√°lido");
 		}
 	}
 
 	public static void validadorEmprestimo(Emprestimo emprestimo) {
 		if ((emprestimo.getPessoa() == null)
 				|| (emprestimo.getAcervo() == null)) {
-			throw new Excecao("EmprÈstimo n„o pode ser null");
+			throw new Excecao("Empr√©stimo n√£o pode ser null");
 		}
 
 		emprestimo.getAcervo().getSituacao();
@@ -32,7 +32,7 @@ public class Validador {
 
 		if ((emprestimo.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO)
 				&& (emprestimo.getAcervo().getTipoAcervo() == TipoAcervo.PERIODICO)) {
-			throw new Excecao("Aluno n„o pode pegar periodico");
+			throw new Excecao("Aluno n√£o pode pegar periodico");
 		}
 
 		for (Emprestimo ep : GerentePersistencia.getInstance()
@@ -41,24 +41,22 @@ public class Validador {
 			if (ep.getPessoa().getTipoPessoa() == TipoPessoa.ALUNO) {
 				if (ep.getPessoa().getListaEmprestimo().size() > Aluno.QUANTIDADE_EMPRESTIMO) {
 					throw new Excecao(
-							"Aluno n„o pode pegar mais de dois livros.");
+							"Aluno n√£o pode pegar mais de dois livros.");
 				}
 				if (ep.getAcervo().getTitulo()
 						.equals(ep.getAcervo().getTitulo())) {
 					throw new Excecao(
-							"Aluno n„o pode pegar dois livros iguais.");
+							"Aluno n√£o pode pegar dois livros iguais.");
 				}
 			}
-
 			if (ep.getPessoa().getTipoPessoa() == TipoPessoa.FUNCIONARIO) {
 				if (ep.getPessoa().getListaEmprestimo().size() > Funcionario.QUANTIDADE_ACERVO_EMPRESTIMO) {
 					throw new Excecao(
-							"Funcion·rio n„o pode pegar mais de cinco livros.");
+							"Funcion√°rio n√£o pode pegar mais de cinco livros.");
 				}
-				if (ep.getAcervo().getTitulo()
-						.equals(ep.getAcervo().getTitulo())) {
+				if(ep.getAcervo().getTitulo().equals(ep.getAcervo().getTitulo())){
 					throw new Excecao(
-							"Aluno n„o pode pegar dois livros iguais.");
+							"Aluno n√£o pode pegar dois livros iguais.");
 				}
 			}
 
